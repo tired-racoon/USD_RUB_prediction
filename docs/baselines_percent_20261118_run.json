@@ -1,0 +1,41 @@
+{
+  "created_at": "2026-11-18T08:19:38.766351+00:00",
+  "parameters": {
+    "data_dir": "data",
+    "command": "backtest",
+    "target": "usd_rub",
+    "start": "2015-01-01",
+    "end": "2026-11-18",
+    "models": null,
+    "window": 730,
+    "horizon": 7,
+    "alpha": 0.05,
+    "output": "data/reports/baselines_percent_20261118",
+    "min_train": 730,
+    "test_start": "2017-01-01",
+    "step": 1
+  },
+  "n_target": 4340,
+  "target_first": "2015-01-01 00:00:00",
+  "target_last": "2026-11-18 00:00:00",
+  "target_raw_sha256": [
+    "7ec28638e534a3a2957a23ca22fc30cc56e83d2eeb34e1d12f3a96be83a8042f",
+    "b88f61114006369cd83b4e4554bf61dbf869028631332bbda983f96d0648863a"
+  ],
+  "origin_time": "00:00 Europe/Moscow on origin date",
+  "horizon_unit": "calendar days",
+  "inputs": [
+    {
+      "path": "src/usd_rub/backtest.py",
+      "sha256": "7d947d64b5d92d54a8f1fb612ba9c2083d80acdcc8521c0c59695065db8bb1d0"
+    },
+    {
+      "path": "src/usd_rub/models.py",
+      "sha256": "7be8ccb72e250702e4c346a3d9df77985b40c9c43e145e1bf94e38c733e0aaeb"
+    },
+    {
+      "path": "data/normalized/usd_rub.csv",
+      "sha256": "67076376c0313987b062d922ac6f737e9b7bdbc780a62389c9acf50a21db80e5"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "parser": "long",
+  "date_column": 0,
+  "date_format": "%d.%m.%Y",
+  "columns": {
+    "1": {"series": "urals_monthly", "unit": "USD/bbl"}
+  }
+}

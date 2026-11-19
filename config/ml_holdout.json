@@ -1,0 +1,48 @@
+{
+  "start": "2011-11-17",
+  "test_start": "2025-01-01",
+  "end": "2026-11-18",
+  "validation_years": [2021, 2022, 2023, 2024],
+  "horizon": 7,
+  "baseline_window": 730,
+  "min_hit_rate": 0.5,
+  "blocks": {
+    "fx": {
+      "log": ["si_front_settle", "cny_tom_close", "cny_tom_vwap", "cny_rub", "eur_rub", "moex_usd_fixing", "usdrubf_close", "cnyrubf_close"],
+      "log1p": ["si_front_oi", "si_front_volume", "usdrubf_oi", "cny_tom_trades"],
+      "rate": ["usdrubf_swaprate", "cnyrubf_swaprate"]
+    },
+    "markets": {
+      "log": ["imoex", "rgbi", "moexog", "vix"],
+      "rate": ["rusfar_cny"]
+    },
+    "global": {
+      "log": ["brent", "wti", "usd_broad", "usd_cny", "usd_brl", "usd_mxn", "usd_inr", "usd_zar"],
+      "rate": ["ust_2y", "ust_10y", "fed_funds"]
+    },
+    "rates": {
+      "log1p": ["ruonia_volume", "bank_correspondent_accounts_ru", "bank_deposits_cbr_total", "cbr_repo_claims_total"],
+      "rate": ["key_rate", "ruonia", "ofz_2y", "ofz_10y", "structural_liquidity", "cny_implied_overnight_rate"]
+    },
+    "macro": {
+      "log": ["m2", "m2x", "international_reserves", "exports", "imports", "gold_monthly", "gas_eu", "fnb_closing_rub_bn", "urals_official_monthly"],
+      "rate": ["trade_balance", "cpi_ru_mom_index", "cpi_us", "budget_balance", "household_inflation_expected_1y", "corporate_price_expectations_sa", "business_climate_sa", "industrial_production_mom_sa", "china_manufacturing_pmi", "oil_gas_revenue", "minfin_fx_gold_operations_rub_bn", "bop_estimate_current_account_monthly", "export_settlement_share_rub", "import_settlement_share_rub"]
+    },
+    "news": {
+      "log1p": ["gpr_daily", "gpr_russia_monthly", "gpr_russia_ru_press_daily", "gpr_russia_ru_press_monthly"]
+    }
+  },
+  "assumed_lags": {
+    "brent": 7, "wti": 7, "usd_broad": 10, "usd_cny": 10, "usd_brl": 10, "usd_mxn": 10, "usd_inr": 10, "usd_zar": 10,
+    "ust_2y": 4, "ust_10y": 4, "fed_funds": 4,
+    "ruonia": 4, "ruonia_volume": 4, "ofz_2y": 2, "ofz_10y": 2, "structural_liquidity": 2,
+    "bank_correspondent_accounts_ru": 3, "bank_deposits_cbr_total": 3, "cbr_repo_claims_total": 3, "cny_implied_overnight_rate": 3,
+    "m2": 60, "m2x": 60, "international_reserves": 10, "exports": 75, "imports": 75, "trade_balance": 75,
+    "gold_monthly": 45, "gas_eu": 50, "fnb_closing_rub_bn": 55, "urals_official_monthly": 55,
+    "cpi_ru_mom_index": 55, "cpi_us": 55, "budget_balance": 65, "household_inflation_expected_1y": 45,
+    "corporate_price_expectations_sa": 45, "business_climate_sa": 45, "industrial_production_mom_sa": 75,
+    "china_manufacturing_pmi": 42, "oil_gas_revenue": 65, "minfin_fx_gold_operations_rub_bn": 45,
+    "bop_estimate_current_account_monthly": 80, "export_settlement_share_rub": 75, "import_settlement_share_rub": 75,
+    "gpr_daily": 10, "gpr_russia_monthly": 40, "gpr_russia_ru_press_daily": 1, "gpr_russia_ru_press_monthly": 35
+  }
+}

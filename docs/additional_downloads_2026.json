@@ -1,0 +1,2396 @@
+{
+  "sources": {
+    "cbr_cny_funding": {
+      "status": "partial_history",
+      "series": {
+        "cny_implied_overnight_rate": {
+          "rows": 888,
+          "first": "2023-01-09",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 13
+        }
+      },
+      "limitation": "Ряд с 2023 года, десяти лет нет",
+      "report_file": "data/reports/fetch_20261117_181528.json",
+      "finished_at": "2026-11-17T15:15:28.604452+00:00"
+    },
+    "cbr_settlements": {
+      "status": "partial_history",
+      "series": {
+        "export_settlement_share_listed_states": {
+          "rows": 93,
+          "first": "2019-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "export_settlement_share_other": {
+          "rows": 93,
+          "first": "2019-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "export_settlement_share_rub": {
+          "rows": 93,
+          "first": "2019-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "import_settlement_share_listed_states": {
+          "rows": 93,
+          "first": "2019-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "import_settlement_share_other": {
+          "rows": 93,
+          "first": "2019-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "import_settlement_share_rub": {
+          "rows": 93,
+          "first": "2019-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Новая классификация государств; не USD/CNY по отдельности",
+      "report_file": "data/reports/fetch_20261117_181528.json",
+      "finished_at": "2026-11-17T15:15:28.604452+00:00"
+    },
+    "cbr_bop": {
+      "status": "ok",
+      "series": {
+        "bop_capital_account_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_errors_omissions_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_financial_account_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_goods_balance_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_goods_exports_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_goods_imports_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_investment_income_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_other_receivables_assets_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_other_receivables_liabilities_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_reserve_assets_flow_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_secondary_income_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_services_balance_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_services_exports_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "bop_services_imports_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        },
+        "current_account_quarterly": {
+          "rows": 46,
+          "first": "2015-03-31",
+          "last": "2026-06-30",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 92
+        }
+      },
+      "limitation": "",
+      "report_file": "data/reports/fetch_20261117_181607.json",
+      "finished_at": "2026-11-17T15:16:07.094715+00:00"
+    },
+    "cbr_expectations": {
+      "status": "partial_history",
+      "series": {
+        "household_inflation_expected_1y": {
+          "rows": 138,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 153
+        },
+        "household_inflation_expected_5y": {
+          "rows": 46,
+          "first": "2023-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "household_inflation_observed": {
+          "rows": 138,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 153
+        }
+      },
+      "limitation": "",
+      "report_file": "data/reports/fetch_20261117_181528.json",
+      "finished_at": "2026-11-17T15:15:28.604452+00:00"
+    },
+    "cbr_business": {
+      "status": "ok",
+      "series": {
+        "business_climate_raw": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "business_climate_sa": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_demand_expectations_raw": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_demand_expectations_sa": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_output_expectations_raw": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_output_expectations_sa": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_price_expectations_raw": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_price_expectations_sa": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_prices_raw": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "corporate_prices_sa": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "",
+      "report_file": "data/reports/fetch_20261117_181607.json",
+      "finished_at": "2026-11-17T15:16:07.094715+00:00"
+    },
+    "minfin_fnb": {
+      "status": "ok",
+      "series": {
+        "fnb_closing_rub_bn": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "fnb_inflows_rub_bn": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "fnb_opening_rub_bn": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "fnb_revaluation_rub_bn": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "fnb_withdrawals_rub_bn": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "",
+      "report_file": "data/reports/fetch_20261117_181818.json",
+      "finished_at": "2026-11-17T15:18:18.581409+00:00"
+    },
+    "cbr_orfr": {
+      "status": "partial_history",
+      "series": {
+        "household_net_fx_purchases": {
+          "rows": 5,
+          "first": "2025-07-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 242
+        },
+        "nonfinancial_net_fx_sales": {
+          "rows": 4,
+          "first": "2026-04-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 91
+        }
+      },
+      "limitation": "Извлекаются только однозначные числовые фрагменты; разные определения продавцов разделены",
+      "excluded_series": {
+        "exporter_net_fx_sales": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2025-10-01"
+        }
+      },
+      "report_file": "data/reports/fetch_20261117_182051.json",
+      "finished_at": "2026-11-17T15:20:51.115694+00:00"
+    },
+    "minfin_fx_budget": {
+      "status": "partial_history",
+      "series": {
+        "minfin_fx_gold_operations_rub_bn": {
+          "rows": 95,
+          "first": "2018-01-01",
+          "last": "2026-11-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 334
+        },
+        "ndd_revenue_rub_bn": {
+          "rows": 93,
+          "first": "2019-02-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "ndpi_revenue_rub_bn": {
+          "rows": 106,
+          "first": "2018-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "oil_gas_additional_revenue_rub_bn": {
+          "rows": 106,
+          "first": "2018-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "oil_gas_baseline_revenue_rub_bn": {
+          "rows": 106,
+          "first": "2018-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Валютные операции включают золото; объявленный месячный объём не равен фактическим дневным торгам",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261117_182349.json",
+      "finished_at": "2026-11-17T15:23:49.059903+00:00"
+    },
+    "moex_cnyrubf": {
+      "status": "partial_history",
+      "series": {
+        "cnyrubf_close": {
+          "rows": 1158,
+          "first": "2022-04-26",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        },
+        "cnyrubf_oi": {
+          "rows": 1158,
+          "first": "2022-04-26",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        },
+        "cnyrubf_swaprate": {
+          "rows": 1005,
+          "first": "2022-12-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        },
+        "cnyrubf_volume": {
+          "rows": 1158,
+          "first": "2022-04-26",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        }
+      },
+      "limitation": "Новый инструмент, десяти лет истории нет",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261117_182518.json",
+      "finished_at": "2026-11-17T15:25:18.021597+00:00"
+    },
+    "moex_usdrubf": {
+      "status": "partial_history",
+      "series": {
+        "usdrubf_close": {
+          "rows": 1158,
+          "first": "2022-04-26",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        },
+        "usdrubf_oi": {
+          "rows": 1158,
+          "first": "2022-04-26",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        },
+        "usdrubf_swaprate": {
+          "rows": 1005,
+          "first": "2022-12-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        },
+        "usdrubf_volume": {
+          "rows": 1158,
+          "first": "2022-04-26",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 6
+        }
+      },
+      "limitation": "Новый инструмент, десяти лет истории нет",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261117_182518.json",
+      "finished_at": "2026-11-17T15:25:18.021597+00:00"
+    },
+    "moex_si_front": {
+      "status": "ok",
+      "series": {
+        "si_front_close": {
+          "rows": 2989,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 19
+        },
+        "si_front_oi": {
+          "rows": 2990,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 19
+        },
+        "si_front_settle": {
+          "rows": 2990,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 19
+        },
+        "si_front_volume": {
+          "rows": 2989,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 19
+        }
+      },
+      "limitation": "Роллирование за 5 календарных дней до последнего дня торгов; цены без склейки задним числом",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261117_182518.json",
+      "finished_at": "2026-11-17T15:25:18.021597+00:00"
+    },
+    "rosstat_weekly_items": {
+      "status": "partial_history",
+      "series": {
+        "weekly_item_price_04b066c59e94": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_05b0b613ca08": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_0f98e8ca4747": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_1041544ddd21": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_129b3cd95fa0": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_169ce98d7b88": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_19aa1c654eec": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_1b5e0adbd703": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_1fc90bc0fe26": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_23df67ec6a66": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_2556973b63c6": {
+          "rows": 95,
+          "first": "2025-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_25be62c86dc6": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_27ed6139445e": {
+          "rows": 197,
+          "first": "2023-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_28d4ee0f4ac9": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_292726641a5d": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_293cb1c4140d": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_29b1d008c0cf": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_2adbcb0238fe": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_2bf7b3d3d299": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_2c19f2aa0c0b": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3095d8f07ff0": {
+          "rows": 95,
+          "first": "2025-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_31a20299c2d4": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3455c583ae39": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_36748ab53b4f": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_378cb3179c27": {
+          "rows": 95,
+          "first": "2025-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_37e61101a7ae": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3976dcf08f65": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3d7b4e743d9d": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3e2c2d221b22": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3f0ad96f2972": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3f3630c1712b": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_3fb2cc4697c9": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_4dcc490eac34": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_5232e5285aad": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_543b65990261": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_5a14059bf2f1": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_5bb71b5726c2": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_5c172ce69895": {
+          "rows": 197,
+          "first": "2023-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_5d2e3f3d7636": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_5daf7cb325bc": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_6397612c8144": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_65c53f705a67": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_65c8b91f2982": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_661db66c0ebe": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_6624e1f9207d": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_6af6f9a7c8f7": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_707314198371": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_7157bd0d0740": {
+          "rows": 197,
+          "first": "2023-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_72a122066a76": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_766d957e5fda": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_78bb68137eec": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_8333156e848b": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_843f1fbf5fc5": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_86d6f4ddd368": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_875c7841ebdd": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_892053cdf40e": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_894ff092f74c": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_898ae2b4a2be": {
+          "rows": 95,
+          "first": "2025-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_8a5219bf20f5": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_8babea7968e0": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_8ce12f10bd88": {
+          "rows": 44,
+          "first": "2026-01-12",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 8
+        },
+        "weekly_item_price_8eeb096714aa": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_91419a65445d": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_91f3b8deced3": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_925018e45b72": {
+          "rows": 44,
+          "first": "2026-01-12",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 8
+        },
+        "weekly_item_price_960f8f04f343": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_964b99d70dd3": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_999267abb338": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_9a2205cf1913": {
+          "rows": 44,
+          "first": "2026-01-12",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 8
+        },
+        "weekly_item_price_a14bb6a314a8": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_a3987f58da3a": {
+          "rows": 197,
+          "first": "2023-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_a64f758c0151": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_a6be1d74dcb8": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_a949fba13ec1": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_a9aa92d14f79": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_aa4565ab0614": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_b72b02222399": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_b7ce6358f7a3": {
+          "rows": 197,
+          "first": "2023-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_b86fe4c5d80b": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_b99cd4a895e3": {
+          "rows": 44,
+          "first": "2026-01-12",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 8
+        },
+        "weekly_item_price_bac4c2c6a325": {
+          "rows": 44,
+          "first": "2026-01-12",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 8
+        },
+        "weekly_item_price_bdbf49285564": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_bed59776cfe4": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_c5e6e433b4bb": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_c6d9afbc6d55": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_cc232ab61de4": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_ce5d0b019404": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_ce8b95472eaa": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_cf3a97e453f0": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_d18c31054963": {
+          "rows": 95,
+          "first": "2025-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_d1f825f5b2fa": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_d33379875603": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_d39be91baf92": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_da086fdf1883": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_dce29650781d": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_e531d47fa8ba": {
+          "rows": 197,
+          "first": "2023-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_e82a1d36af04": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_e883ca6841af": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_ebbeeeb283af": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_ec5d9b29c749": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_ee9e8dff0b85": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_efd18f416919": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_f1f10455ab5c": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_f2a5ff989d82": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_f3a7786f20b0": {
+          "rows": 95,
+          "first": "2025-01-09",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_f55ee26bbdcc": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_f87fb24a95d3": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_f98e9e3a20c5": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_fc5683d9a9f0": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        },
+        "weekly_item_price_fe7aaa95e53a": {
+          "rows": 248,
+          "first": "2022-01-10",
+          "last": "2026-11-09",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 21
+        }
+      },
+      "limitation": "Проверенный файл содержит историю с 2022 года",
+      "excluded_series": {
+        "weekly_item_price_059e11b947fa": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_08ae15130dcc": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_12e23c60d206": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_1ab212efb142": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-11-25"
+        },
+        "weekly_item_price_2ac1e1c61a59": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2025-12-22"
+        },
+        "weekly_item_price_482106ccb72f": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2025-12-22"
+        },
+        "weekly_item_price_5130969cea5f": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2025-12-22"
+        },
+        "weekly_item_price_646260441c68": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_64ba1a1dd5b6": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2022-12-26"
+        },
+        "weekly_item_price_71d1a0229009": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_7a3b07b7ea78": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2022-12-26"
+        },
+        "weekly_item_price_83286dee425e": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2025-12-22"
+        },
+        "weekly_item_price_c3710f10ce07": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2022-12-26"
+        },
+        "weekly_item_price_cee046beeef3": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_e2f682cf7009": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_e611a979410c": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2024-12-23"
+        },
+        "weekly_item_price_efc4b0f04f10": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2022-12-26"
+        },
+        "weekly_item_price_f9710b63935e": {
+          "reason": "нет наблюдений за 2026 год",
+          "last": "2025-12-22"
+        }
+      },
+      "report_file": "data/reports/fetch_20261117_182927.json",
+      "finished_at": "2026-11-17T15:29:27.012180+00:00"
+    },
+    "rosstat_industry": {
+      "status": "partial_history",
+      "series": {
+        "industrial_production_mom_raw": {
+          "rows": 81,
+          "first": "2020-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        },
+        "industrial_production_mom_sa": {
+          "rows": 81,
+          "first": "2020-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Старый файл возвращает 404; актуальная таблица с 2020 года",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261117_183522.json",
+      "finished_at": "2026-11-17T15:35:22.595654+00:00"
+    },
+    "economy_urals": {
+      "status": "partial_history",
+      "series": {
+        "urals_official_monthly": {
+          "rows": 30,
+          "first": "2024-05-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Сайт публикует текущие документы; архив до 2018 года может отсутствовать",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261117_183522.json",
+      "finished_at": "2026-11-17T15:35:22.595654+00:00"
+    },
+    "fns_calendar": {
+      "status": "partial_history",
+      "series": {
+        "fns_tax_filing_count": {
+          "rows": 3975,
+          "first": "2015-01-01",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_span_at_least_10y": true,
+          "history_at_least_10y": false,
+          "missing_calendar_years": [
+            2017
+          ],
+          "max_gap_days": 366
+        },
+        "fns_tax_payment_count": {
+          "rows": 3975,
+          "first": "2015-01-01",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_span_at_least_10y": true,
+          "history_at_least_10y": false,
+          "missing_calendar_years": [
+            2017
+          ],
+          "max_gap_days": 366
+        },
+        "ru_holiday_fns": {
+          "rows": 3975,
+          "first": "2015-01-01",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_span_at_least_10y": true,
+          "history_at_least_10y": false,
+          "missing_calendar_years": [
+            2017
+          ],
+          "max_gap_days": 366
+        }
+      },
+      "limitation": "Количество записей об уплате не равно сумме налогов; версии и даты выпуска сохраняются",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_095045.json",
+      "finished_at": "2026-11-18T06:50:45.154420+00:00"
+    },
+    "fred_usd_mxn": {
+      "status": "ok",
+      "series": {
+        "usd_mxn": {
+          "rows": 2966,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 5
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно.",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094142.json",
+      "finished_at": "2026-11-18T06:41:42.688031+00:00"
+    },
+    "worldbank_commodities": {
+      "status": "ok",
+      "series": {
+        "gold_monthly": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "lng_japan_monthly": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Месячные цены; LNG Japan не является дневным JKM",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094142.json",
+      "finished_at": "2026-11-18T06:41:42.688031+00:00"
+    },
+    "fred_usd_brl": {
+      "status": "ok",
+      "series": {
+        "usd_brl": {
+          "rows": 2966,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 5
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно.",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094142.json",
+      "finished_at": "2026-11-18T06:41:42.688031+00:00"
+    },
+    "fred_usd_zar": {
+      "status": "ok",
+      "series": {
+        "usd_zar": {
+          "rows": 2966,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 5
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно.",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094142.json",
+      "finished_at": "2026-11-18T06:41:42.688031+00:00"
+    },
+    "fred_usd_inr": {
+      "status": "ok",
+      "series": {
+        "usd_inr": {
+          "rows": 2966,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 5
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно.",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094142.json",
+      "finished_at": "2026-11-18T06:41:42.688031+00:00"
+    },
+    "minfin_budget": {
+      "status": "ok",
+      "series": {
+        "budget_balance": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_balance_ytd": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_domestic_vat": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_domestic_vat_ytd": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_expenditure": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_expenditure_ytd": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_non_oil_revenue": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_non_oil_revenue_ytd": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_profit_tax": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_profit_tax_ytd": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_revenue": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "budget_revenue_ytd": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Баланс: дефицит отрицательный, профицит положительный; текущий винтаж",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094142.json",
+      "finished_at": "2026-11-18T06:41:42.688031+00:00"
+    },
+    "cbr_repo_claims": {
+      "status": "partial_history",
+      "series": {
+        "cbr_repo_claims_fine_tuning_auction": {
+          "rows": 985,
+          "first": "2023-01-03",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": false,
+          "history_span_at_least_10y": false,
+          "history_at_least_10y": false,
+          "missing_calendar_years": [],
+          "max_gap_days": 6
+        },
+        "cbr_repo_claims_main_auction": {
+          "rows": 985,
+          "first": "2023-01-03",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": false,
+          "history_span_at_least_10y": false,
+          "history_at_least_10y": false,
+          "missing_calendar_years": [],
+          "max_gap_days": 6
+        },
+        "cbr_repo_claims_total": {
+          "rows": 983,
+          "first": "2023-01-03",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": false,
+          "history_span_at_least_10y": false,
+          "history_at_least_10y": false,
+          "missing_calendar_years": [],
+          "max_gap_days": 6
+        }
+      },
+      "limitation": "",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_095045.json",
+      "finished_at": "2026-11-18T06:50:45.154420+00:00"
+    },
+    "cbr_correspondent_accounts": {
+      "status": "ok",
+      "series": {
+        "bank_correspondent_accounts_moscow": {
+          "rows": 3115,
+          "first": "2015-01-01",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 11
+        },
+        "bank_correspondent_accounts_ru": {
+          "rows": 3115,
+          "first": "2015-01-01",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 11
+        }
+      },
+      "limitation": "",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094211.json",
+      "finished_at": "2026-11-18T06:42:11.698275+00:00"
+    },
+    "cbr_bank_deposits": {
+      "status": "partial_history",
+      "series": {
+        "bank_deposits_cbr_overnight": {
+          "rows": 2185,
+          "first": "2018-05-18",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 11
+        },
+        "bank_deposits_cbr_total": {
+          "rows": 2185,
+          "first": "2018-05-18",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": false,
+          "history_at_least_10y": false,
+          "max_gap_days": 11
+        }
+      },
+      "limitation": "",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094211.json",
+      "finished_at": "2026-11-18T06:42:11.698275+00:00"
+    },
+    "cbr_deposit_rate": {
+      "status": "ok",
+      "series": {
+        "cbr_deposit_overnight_rate": {
+          "rows": 2988,
+          "first": "2015-01-12",
+          "last": "2026-11-18",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 12
+        }
+      },
+      "limitation": "",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094211.json",
+      "finished_at": "2026-11-18T06:42:11.698275+00:00"
+    },
+    "nbs_pmi": {
+      "status": "ok",
+      "series": {
+        "china_manufacturing_pmi": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "china_pmi_new_orders": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "china_pmi_production": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-18",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Официальный NBS, не Caixin; текущие тексты архивных таблиц",
+      "excluded_series": {},
+      "report_file": "data/reports/fetch_20261118_094628.json",
+      "finished_at": "2026-11-18T06:46:28.419293+00:00"
+    }
+  },
+  "selected_sources": [
+    "cbr_bop",
+    "cbr_business",
+    "cbr_expectations",
+    "cbr_cny_funding",
+    "cbr_settlements",
+    "minfin_fnb",
+    "minfin_fx_budget",
+    "cbr_orfr",
+    "economy_urals",
+    "rosstat_industry",
+    "rosstat_weekly_items",
+    "moex_si_front",
+    "moex_usdrubf",
+    "moex_cnyrubf",
+    "fns_calendar",
+    "worldbank_commodities",
+    "minfin_budget",
+    "fred_usd_brl",
+    "fred_usd_mxn",
+    "fred_usd_zar",
+    "fred_usd_inr",
+    "cbr_correspondent_accounts",
+    "cbr_bank_deposits",
+    "cbr_deposit_rate",
+    "cbr_repo_claims",
+    "nbs_pmi"
+  ]
+}

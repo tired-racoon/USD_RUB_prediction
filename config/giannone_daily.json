@@ -1,0 +1,27 @@
+{
+  "article": "Giannone, Reichlin, Small (2008), equations (1)-(9)",
+  "factors": 2,
+  "shocks": 2,
+  "min_balanced": 120,
+  "interior_fill_limit_days": 15,
+  "stability_radius": 0.999,
+  "variance_floor": 1e-8,
+  "series": {
+    "cny_rub": {"transform": "logdiff"},
+    "eur_rub": {"transform": "logdiff"},
+    "cny_tom_close": {"transform": "logdiff"},
+    "si_front_settle": {"transform": "logdiff"},
+    "imoex": {"transform": "logdiff"},
+    "vix": {"transform": "logdiff"},
+    "brent": {"transform": "logdiff", "assumed_lag_days": 7},
+    "usd_cny": {"transform": "logdiff", "assumed_lag_days": 10},
+    "usd_broad": {"transform": "logdiff", "assumed_lag_days": 10},
+    "ust_2y": {"transform": "diff", "assumed_lag_days": 4},
+    "ust_10y": {"transform": "diff", "assumed_lag_days": 4},
+    "ruonia": {"transform": "diff", "assumed_lag_days": 4},
+    "key_rate": {"transform": "diff"},
+    "ofz_2y": {"transform": "diff", "assumed_lag_days": 1},
+    "ofz_10y": {"transform": "diff", "assumed_lag_days": 1},
+    "structural_liquidity": {"transform": "diff", "assumed_lag_days": 1}
+  }
+}

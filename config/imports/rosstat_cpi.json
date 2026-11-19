@@ -1,0 +1,7 @@
+{
+  "parser": "month_matrix",
+  "name": "cpi_ru_mom_index",
+  "unit": "% previous month=100",
+  "header_pattern": "предыдущего месяца",
+  "sheet": "01"
+}

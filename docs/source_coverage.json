@@ -1,0 +1,490 @@
+{
+  "started_at": "2026-11-17T14:12:29.070918+00:00",
+  "start": "2015-01-01",
+  "end": "2026-11-17",
+  "sources": {
+    "cbr_key_rate": {
+      "status": "ok",
+      "series": {
+        "key_rate": {
+          "rows": 2980,
+          "first": "2015-01-12",
+          "last": "2026-11-17",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 12
+        }
+      },
+      "limitation": ""
+    },
+    "cbr_ruonia": {
+      "status": "ok",
+      "series": {
+        "ruonia": {
+          "rows": 2916,
+          "first": "2015-01-12",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 14
+        },
+        "ruonia_volume": {
+          "rows": 2899,
+          "first": "2015-01-12",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 14
+        }
+      },
+      "limitation": ""
+    },
+    "cbr_ofz": {
+      "status": "ok",
+      "series": {
+        "ofz_10y": {
+          "rows": 2987,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 24
+        },
+        "ofz_1y": {
+          "rows": 2987,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 24
+        },
+        "ofz_2y": {
+          "rows": 2987,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 24
+        },
+        "ofz_5y": {
+          "rows": 2987,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 24
+        }
+      },
+      "limitation": ""
+    },
+    "cbr_reserves": {
+      "status": "ok",
+      "series": {
+        "international_reserves": {
+          "rows": 619,
+          "first": "2015-01-02",
+          "last": "2026-11-06",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 7
+        }
+      },
+      "limitation": ""
+    },
+    "cbr_usd": {
+      "status": "ok",
+      "series": {
+        "usd_rub": {
+          "rows": 2930,
+          "first": "2015-01-01",
+          "last": "2026-11-17",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 13
+        }
+      },
+      "limitation": ""
+    },
+    "cbr_cny": {
+      "status": "ok",
+      "series": {
+        "cny_rub": {
+          "rows": 2930,
+          "first": "2015-01-01",
+          "last": "2026-11-17",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 13
+        }
+      },
+      "limitation": ""
+    },
+    "cbr_trade": {
+      "status": "ok",
+      "series": {
+        "exports": {
+          "rows": 141,
+          "first": "2015-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "imports": {
+          "rows": 141,
+          "first": "2015-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "trade_balance": {
+          "rows": 141,
+          "first": "2015-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": ""
+    },
+    "moex_imoex": {
+      "status": "ok",
+      "series": {
+        "imoex": {
+          "rows": 2985,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 27
+        }
+      },
+      "limitation": ""
+    },
+    "moex_cny": {
+      "status": "ok",
+      "series": {
+        "cny_tom_close": {
+          "rows": 3001,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        },
+        "cny_tom_high": {
+          "rows": 3001,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        },
+        "cny_tom_low": {
+          "rows": 3001,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        },
+        "cny_tom_open": {
+          "rows": 3001,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        },
+        "cny_tom_trades": {
+          "rows": 3002,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        },
+        "cny_tom_vwap": {
+          "rows": 3001,
+          "first": "2015-01-05",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        }
+      },
+      "limitation": ""
+    },
+    "cboe_vix": {
+      "status": "ok",
+      "series": {
+        "vix": {
+          "rows": 3019,
+          "first": "2015-01-02",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 4
+        }
+      },
+      "limitation": ""
+    },
+    "cbr_money": {
+      "status": "ok",
+      "series": {
+        "m2": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "m2x": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": ""
+    },
+    "fred_usd_cny": {
+      "status": "ok",
+      "series": {
+        "usd_cny": {
+          "rows": 2966,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 5
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "rosstat_cpi": {
+      "status": "ok",
+      "series": {
+        "cpi_ru_mom_index": {
+          "rows": 141,
+          "first": "2015-01-01",
+          "last": "2026-09-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "На macOS резервная загрузка через --browser-fallback; также поддержан импорт XLSX"
+    },
+    "fred_brent": {
+      "status": "ok",
+      "series": {
+        "brent": {
+          "rows": 3012,
+          "first": "2015-01-02",
+          "last": "2026-11-11",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "fred_ust_2y": {
+      "status": "ok",
+      "series": {
+        "ust_2y": {
+          "rows": 2968,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 4
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "fred_ust_10y": {
+      "status": "ok",
+      "series": {
+        "ust_10y": {
+          "rows": 2968,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 4
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "fred_usd_broad": {
+      "status": "ok",
+      "series": {
+        "usd_broad": {
+          "rows": 2959,
+          "first": "2015-01-02",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 6
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "fred_ust_10y_2y": {
+      "status": "ok",
+      "series": {
+        "ust_10y_2y": {
+          "rows": 2969,
+          "first": "2015-01-02",
+          "last": "2026-11-16",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 4
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "fred_cpi_us": {
+      "status": "ok",
+      "series": {
+        "cpi_us": {
+          "rows": 141,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 61
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "fred_fed_funds": {
+      "status": "ok",
+      "series": {
+        "fed_funds": {
+          "rows": 4335,
+          "first": "2015-01-01",
+          "last": "2026-11-13",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 1
+        }
+      },
+      "limitation": "Текущая версия ряда; исторические моменты публикации не восстановлены. ALFRED — отдельно."
+    },
+    "minfin_oil_gas": {
+      "status": "ok",
+      "series": {
+        "oil_gas_revenue": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        },
+        "oil_gas_revenue_ytd": {
+          "rows": 142,
+          "first": "2015-01-01",
+          "last": "2026-10-01",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 31
+        }
+      },
+      "limitation": "Месячные суммы рассчитаны из накопленных, исходный ряд сохраняется отдельно"
+    },
+    "cbr_liquidity": {
+      "status": "ok",
+      "series": {
+        "structural_liquidity": {
+          "rows": 2984,
+          "first": "2015-01-01",
+          "last": "2026-11-17",
+          "requested_start": "2015-01-01",
+          "requested_end": "2026-11-17",
+          "covers_requested_bounds": true,
+          "history_at_least_10y": true,
+          "max_gap_days": 11
+        }
+      },
+      "limitation": ""
+    }
+  },
+  "finished_at": "2026-11-17T14:12:33.065148+00:00"
+}

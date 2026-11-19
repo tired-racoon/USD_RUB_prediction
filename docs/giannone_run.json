@@ -1,0 +1,192 @@
+{
+  "created_at": "2026-11-18T11:49:20.865797+00:00",
+  "parameters": {
+    "data_dir": "data",
+    "command": "factor-backtest",
+    "config": "config/giannone_daily.json",
+    "target": "usd_rub",
+    "start": "2015-01-01",
+    "end": "2026-11-18",
+    "mode": "both",
+    "min_train": 730,
+    "window": 730,
+    "test_start": "2017-01-01",
+    "horizon": 7,
+    "step": 1,
+    "alpha": 0.05,
+    "output": "data/reports/giannone_20261118"
+  },
+  "configuration": {
+    "article": "Giannone, Reichlin, Small (2008), equations (1)-(9)",
+    "factors": 2,
+    "shocks": 2,
+    "min_balanced": 120,
+    "interior_fill_limit_days": 15,
+    "stability_radius": 0.999,
+    "variance_floor": 1e-08,
+    "series": {
+      "cny_rub": {
+        "transform": "logdiff"
+      },
+      "eur_rub": {
+        "transform": "logdiff"
+      },
+      "cny_tom_close": {
+        "transform": "logdiff"
+      },
+      "si_front_settle": {
+        "transform": "logdiff"
+      },
+      "imoex": {
+        "transform": "logdiff"
+      },
+      "vix": {
+        "transform": "logdiff"
+      },
+      "brent": {
+        "transform": "logdiff",
+        "assumed_lag_days": 7
+      },
+      "usd_cny": {
+        "transform": "logdiff",
+        "assumed_lag_days": 10
+      },
+      "usd_broad": {
+        "transform": "logdiff",
+        "assumed_lag_days": 10
+      },
+      "ust_2y": {
+        "transform": "diff",
+        "assumed_lag_days": 4
+      },
+      "ust_10y": {
+        "transform": "diff",
+        "assumed_lag_days": 4
+      },
+      "ruonia": {
+        "transform": "diff",
+        "assumed_lag_days": 4
+      },
+      "key_rate": {
+        "transform": "diff"
+      },
+      "ofz_2y": {
+        "transform": "diff",
+        "assumed_lag_days": 1
+      },
+      "ofz_10y": {
+        "transform": "diff",
+        "assumed_lag_days": 1
+      },
+      "structural_liquidity": {
+        "transform": "diff",
+        "assumed_lag_days": 1
+      }
+    }
+  },
+  "n_target": 4340,
+  "target_first": "2015-01-01 00:00:00",
+  "target_last": "2026-11-18 00:00:00",
+  "origin_time": "00:00 Europe/Moscow",
+  "horizon_unit": "calendar days",
+  "inputs": [
+    {
+      "path": "data/normalized/usd_rub.csv",
+      "sha256": "67076376c0313987b062d922ac6f737e9b7bdbc780a62389c9acf50a21db80e5"
+    },
+    {
+      "path": "data/normalized/cny_rub.csv",
+      "sha256": "b33609fbcbd69590e16c3c64ea58dcfbbcc6eff04a33f68eb742c5a629b3c84a"
+    },
+    {
+      "path": "data/normalized/eur_rub.csv",
+      "sha256": "d96857e7a372e203971beb37bcb92d1faca5bfa0a489ff41243e0040de950344"
+    },
+    {
+      "path": "data/normalized/cny_tom_close.csv",
+      "sha256": "31b8c50b1aae5e305d2b3a944c293f6e873a6ea8970c7164d8196470099d54a6"
+    },
+    {
+      "path": "data/normalized/si_front_settle.csv",
+      "sha256": "84d5c6e87f302ebaff6fca3b493228c8ad0144268a0f9b2c1effd847c14172be"
+    },
+    {
+      "path": "data/normalized/imoex.csv",
+      "sha256": "eb6729978db623c3358d125d9241c9c00babbf20d2577043aaa3de97cfabdd84"
+    },
+    {
+      "path": "data/normalized/vix.csv",
+      "sha256": "d82fa2fb92b2978f07c94e996c1474f6e41d6e0d039f9759ce841dd744384330"
+    },
+    {
+      "path": "data/normalized/brent.csv",
+      "sha256": "76b04af2ef49b1753cf2df1a6e6837c192d623a61a9ac19972cd21035c2bafe5"
+    },
+    {
+      "path": "data/normalized/usd_cny.csv",
+      "sha256": "e3e9ad16dba6a56b141a099e4aec4271d092cd317a82b7eba43d525f70144125"
+    },
+    {
+      "path": "data/normalized/usd_broad.csv",
+      "sha256": "940c1d20c9a77c32368176958a728df0cc275d40357265bd544c5193512cb6d8"
+    },
+    {
+      "path": "data/normalized/ust_2y.csv",
+      "sha256": "04623553cc18668ce7459abaf88984e6701295757c2d8f7fd8e4c0635fb16b7b"
+    },
+    {
+      "path": "data/normalized/ust_10y.csv",
+      "sha256": "8a7640c92c51941c9e804739b8b8b9a8e6508483798cccaa512002f765055d7b"
+    },
+    {
+      "path": "data/normalized/ruonia.csv",
+      "sha256": "37ad5fe23639f0ba37ab867db4a351dc1e20b96a134c20fdba6590d5661fb465"
+    },
+    {
+      "path": "data/normalized/key_rate.csv",
+      "sha256": "4b09db95ad5c621543f3fce010a565697e2fd8700604732e9090be97d1117b6c"
+    },
+    {
+      "path": "data/normalized/ofz_2y.csv",
+      "sha256": "6e2ff24f65450267d6f833b985f85d36f26238a3ac57f43fa6f1dcf13273e772"
+    },
+    {
+      "path": "data/normalized/ofz_10y.csv",
+      "sha256": "48ddec34810bd77321957abed56a60ea2c3b7d949f4a3722f5680ff78289d479"
+    },
+    {
+      "path": "data/normalized/structural_liquidity.csv",
+      "sha256": "bf078771e484af027a541fa4c86aebd4b3484cdb8d856efdaad12140f13531e0"
+    },
+    {
+      "path": "config/giannone_daily.json",
+      "sha256": "50f1e4685c4b95fa28951bfa6603e9b4c606e1e514b8f6dd5a7c53d3d81ac790"
+    },
+    {
+      "path": "src/usd_rub/dfm.py",
+      "sha256": "f1adada763438251907b984d5043d054ec5a664891321f9641c93105c34c186e"
+    },
+    {
+      "path": "src/usd_rub/factor_data.py",
+      "sha256": "102e3ff900dba235d7698a3e1e025159523613b7481586c8a8869960d0b9a9af"
+    },
+    {
+      "path": "src/usd_rub/factor_backtest.py",
+      "sha256": "2a8ca0c9d87e461253bd4105e8ce865b91fd55e4a75be6eab3f9850e29fcba20"
+    },
+    {
+      "path": "src/usd_rub/backtest.py",
+      "sha256": "7d947d64b5d92d54a8f1fb612ba9c2083d80acdcc8521c0c59695065db8bb1d0"
+    },
+    {
+      "path": "src/usd_rub/models.py",
+      "sha256": "7be8ccb72e250702e4c346a3d9df77985b40c9c43e145e1bf94e38c733e0aaeb"
+    }
+  ],
+  "availability": {
+    "strict": "Stored available_at, unknown publication dates remain at ingestion; exchange close lags are conservative assumptions",
+    "assumed": "Additional explicit lags for unknown dates; latest vintages, not fully historical point-in-time data"
+  },
+  "adaptation": "Daily stationary financial indicators and log USD/RUB returns; no monthly-to-quarterly GDP bridge",
+  "selection": "r=2, q=2 and window fixed before evaluating forecasts; no tuning on test data"
+}

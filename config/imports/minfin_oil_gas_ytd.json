@@ -1,0 +1,9 @@
+{
+  "parser": "long",
+  "transform": "ytd_to_monthly",
+  "date_column": 0,
+  "date_format": "%d.%m.%Y",
+  "columns": {
+    "1": {"series": "oil_gas_revenue", "unit": "RUB bn"}
+  }
+}

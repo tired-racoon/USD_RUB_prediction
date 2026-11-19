@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+info/
+.env
+data/
+/data.zip
+dist/
+.DS_Store
+AGENTS.md
+PLAN.md

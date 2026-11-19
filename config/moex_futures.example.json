@@ -1,0 +1,9 @@
+{
+  "path": "history/engines/futures/markets/forts/boards/RFUD/securities/SiZ6",
+  "columns": {
+    "CLOSE": ["si_z6_close", "RUB per 1000 USD"],
+    "SETTLEPRICE": ["si_z6_settle", "RUB per 1000 USD"],
+    "OPENPOSITION": ["si_z6_oi", "contracts"],
+    "VOLUME": ["si_z6_volume", "contracts"]
+  }
+}
