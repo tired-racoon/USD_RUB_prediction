@@ -60,17 +60,44 @@ def write_dataset(dataset, output):
             temporary.unlink(missing_ok=True)
 
 
+def add_news_features(dataset, path):
+    """Добавить новостные признаки по уже рассчитанной дате прогноза."""
+    news = pd.read_csv(path, index_col="date", parse_dates=["date"], float_precision="round_trip")
+    if (
+        not isinstance(news.index, pd.DatetimeIndex)
+        or news.index.tz is not None
+        or news.index.hasnans
+        or not news.index.is_unique
+        or not news.index.equals(news.index.normalize())
+        or not len(news.columns)
+        or not all(
+            name.startswith(("news__press_", "news__smartlab_", "news__rbc_")) for name in news
+        )
+    ):
+        raise ValueError("Некорректные даты прогноза или имена новостных признаков")
+    return dataset.join(news, how="left", validate="one_to_one")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=Path("config/ml_holdout.json"))
     parser.add_argument("--data-dir", type=Path, default=Path("data"))
     parser.add_argument("--input", type=Path, help="Ранее собранный CSV или CSV.GZ")
+    parser.add_argument(
+        "--news-features",
+        type=Path,
+        action="append",
+        default=[],
+        help="Дневные признаки news-features",
+    )
     parser.add_argument("--min-hit-rate", type=float, default=0.5)
     parser.add_argument(
         "--output", type=Path, default=Path("data/reports/ml_holdout_2025_2026/dataset.csv")
     )
     args = parser.parse_args()
     source = read_dataset(args.input) if args.input else build_dataset(args.config, args.data_dir)
+    for path in args.news_features:
+        source = add_news_features(source, path)
     dataset = clean_dataset(source, args.min_hit_rate)
     write_dataset(dataset, args.output)
     rows, columns = dataset.shape

@@ -64,6 +64,11 @@ def risk_headline(title):
 
 def parse_mk(content, day):
     """Новостные карточки федеральной ленты за архивные сутки."""
+    return {path: title for path, (_, title) in mk_archive(content, day).items()}
+
+
+def mk_archive(content, day):
+    """Заголовки и ссылки федеральной ленты за архивные сутки."""
     doc = html.fromstring(content.decode("utf-8"))
     expected = f"{MK}/news/{day:%Y/%m/%d}/"
     if doc.xpath('//link[@rel="canonical"]/@href') != [expected]:
@@ -76,7 +81,7 @@ def parse_mk(content, day):
         title = node.xpath("string(./h3)").strip()
         if not title:
             raise ValueError(f"МК: отсутствует заголовок {url.path}")
-        headlines[url.path] = title
+        headlines[url.path] = (node.attrib["href"], title)
     if not headlines:
         raise ValueError(f"МК: пустая лента {day}")
     return headlines
@@ -84,6 +89,12 @@ def parse_mk(content, day):
 
 def parse_interfax(content, day, page):
     """Заголовки и число страниц дневного архива."""
+    headlines, pages = interfax_archive(content, day, page)
+    return {key: title for key, (_, title) in headlines.items()}, pages
+
+
+def interfax_archive(content, day, page):
+    """Заголовки, ссылки и число страниц дневного архива."""
     doc = html.fromstring(content.decode("utf-8"))
     stamp = f'var data_date="{day:%Y-%m-%d}"'
     if not doc.xpath("//script[contains(text(), $stamp)]", stamp=stamp):
@@ -96,7 +107,7 @@ def parse_interfax(content, day, page):
         title = node.xpath("string(./a/h3)").strip()
         if not title:
             raise ValueError(f"Интерфакс: отсутствует заголовок {node.get('data-id')}")
-        headlines[node.attrib["data-id"]] = title
+        headlines[node.attrib["data-id"]] = (node.xpath("string(./a/@href)"), title)
     if not headlines:
         raise ValueError(f"Интерфакс: пустая лента {day}, страница {page}")
     return headlines, max(int(p.text) for p in pages if (p.text or "").isdigit())

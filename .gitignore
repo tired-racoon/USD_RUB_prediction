@@ -5,6 +5,7 @@ __pycache__/
 .ipynb_checkpoints/
 *.egg-info/
 info/
+/papers/
 .env
 data/
 /data.zip
