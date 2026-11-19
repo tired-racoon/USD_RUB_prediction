@@ -1,0 +1,47 @@
+{
+  "h1_target": "log_return",
+  "h1_cv_relative_rmse": 0.92367416904113,
+  "h2_alpha": 0.9500000000000001,
+  "h2_cv_relative_rmse": 0.9235794805426139,
+  "h3_selected": {
+    "stage": "H3",
+    "target": "log_return",
+    "alpha": 0.9500000000000001,
+    "window": "expanding",
+    "half_life": "none",
+    "cv_relative_rmse": 0.9235794805426139
+  },
+  "features": [
+    "own__return_1",
+    "own__return_5",
+    "own__vol_21",
+    "fx__si_front_settle_basis",
+    "fx__cny_basis",
+    "fx__cny_rub_change_1",
+    "fx__cny_rub_change_5",
+    "fx__eur_rub_change_1",
+    "fx__eur_rub_change_5",
+    "fx__si_front_settle_change_1",
+    "fx__si_front_settle_change_5",
+    "fx__cny_tom_close_change_1",
+    "fx__cny_tom_close_change_5",
+    "markets__imoex_change_1",
+    "markets__imoex_change_5",
+    "markets__vix_change_1",
+    "markets__vix_change_5",
+    "current_usd_rub"
+  ],
+  "feature_screening_end_exclusive": "2021-01-01",
+  "dataset_sha256": "d0f3d02c8d2ab701e982b14f57b52d2f8cf8eee1fd3c27f8aa155632f32414b3",
+  "test_first": "2025-01-01",
+  "test_last": "2026-11-11",
+  "test_count": 680
+}
+model
+h1_difference    0.937917
+h2_shrink        0.943127
+h3_recency       0.943127
+h1_log_return    0.945478
+rw               1.000000
+h1_level         2.941215
+Name: relative_rmse, dtype: float64

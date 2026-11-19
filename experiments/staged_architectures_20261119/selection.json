@@ -1,0 +1,11 @@
+{
+  "winner": {
+    "model": "ridge",
+    "cv_relative_rmse": 0.9228603441927865
+  },
+  "alpha": 0.9500000000000001,
+  "feature_panel": "pilot_plus_calendar",
+  "test_start": "2025-01-01",
+  "test_count": 680,
+  "lightgbm_status": "evaluated"
+}

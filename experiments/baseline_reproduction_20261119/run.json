@@ -1,0 +1,99 @@
+{
+  "champion": "ensemble",
+  "best_individual": "histboost_market_1460_3_direct",
+  "family_winners": [
+    "histboost_market_1460_3_direct",
+    "ridge_pilot_full_0.15_direct",
+    "extra_trees_market_1460_3_pooled",
+    "catboost_market_1460_3_direct"
+  ],
+  "setup_winners": [
+    "histboost_market_1460_3_direct",
+    "ridge_pilot_full_0.15_direct",
+    "catboost_strict_all_full_4_pooled",
+    "catboost_extended_no_news_1460_3_pooled",
+    "histboost_extended_full_4_pooled",
+    "ridge_own_1460_0.15_direct"
+  ],
+  "ensemble_weights": {
+    "rw": 2.695627861132512e-17,
+    "histboost_market_1460_3_direct": 0.46914606344137727,
+    "ridge_pilot_full_0.15_direct": 0.42127258372817916,
+    "extra_trees_market_1460_3_pooled": 0.10958135283044355,
+    "catboost_market_1460_3_direct": 0.0
+  },
+  "ensemble_cv_score": 0.9090661544925277,
+  "champion_cv_score": 0.9090661544925277,
+  "test_start": "2025-01-01",
+  "training_last_date": "2024-12-31",
+  "min_hit_rate": 0.5,
+  "validation_folds": [
+    {
+      "first": "2021-01-01",
+      "last": "2021-12-24"
+    },
+    {
+      "first": "2022-01-01",
+      "last": "2022-12-24"
+    },
+    {
+      "first": "2023-01-01",
+      "last": "2023-12-24"
+    },
+    {
+      "first": "2024-01-01",
+      "last": "2024-12-24"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/backtest.py",
+      "sha256": "7d947d64b5d92d54a8f1fb612ba9c2083d80acdcc8521c0c59695065db8bb1d0"
+    },
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/features.py",
+      "sha256": "ab995dde0fc57ab786989fc4fb89419d524224a3304892a7a7afe208ea818ac6"
+    },
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/freshness.py",
+      "sha256": "0fba2207a817f1aed314bb146b2f4c174d1650168f1d6c3b81d9440126765459"
+    },
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/meeting_features.py",
+      "sha256": "ce723ce1a362b698eef2a8eced2caa6a9b8f4a92e8f93dc3fb91cc456271f22f"
+    },
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/ml_dataset.py",
+      "sha256": "8c64429e144999667662c74faac730ee475d1e586ac5529e4a620ac3a8dd90be"
+    },
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/ml_experiment.py",
+      "sha256": "5c92f16d51c05f0484b781fcf3e3ac734029311364e5d8e5900e1e23a6067702"
+    },
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/ml_features.py",
+      "sha256": "2646eb196703aa45f0cf6e84c8edcfad0b4b4e50c4be39a96c06faf53160a4c6"
+    },
+    {
+      "path": "/Users/vadimbatalev/Documents/programming/projects/USD_RUB_prediction/src/usd_rub/models.py",
+      "sha256": "c5ffa18344ea556a9cad6a28b54b12e9ca7314e6ba6079594cf924868a6a674f"
+    },
+    {
+      "path": "config/ml_holdout.json",
+      "sha256": "22f98c061eece07944c95fbabd047035672d747145e66ae1a1022c47dad3fd23"
+    },
+    {
+      "path": "datasets/usd_rub_2011_2026.csv.gz",
+      "sha256": "d0f3d02c8d2ab701e982b14f57b52d2f8cf8eee1fd3c27f8aa155632f32414b3"
+    }
+  ],
+  "test_first": "2025-01-01",
+  "test_last_origin": "2026-11-11",
+  "test_last_target": "2026-11-18",
+  "test_origins": 680,
+  "candidate_count": 39,
+  "bootstrap_gain_95_pct": [
+    4.952987508602332,
+    10.167298823908983
+  ]
+}

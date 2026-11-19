@@ -1,0 +1,23 @@
+{
+  "winner": {
+    "kind": "static",
+    "lookback": 0,
+    "conditioning": "none",
+    "dynamic_fraction": 0.0,
+    "weights": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "cv_relative_rmse": 0.9228603441927865,
+    "complexity_rank": 0
+  },
+  "static_weights": [
+    0.0,
+    1.0,
+    0.0
+  ],
+  "static_cv_relative_rmse": 0.9228603441927865,
+  "volatility_threshold_pre_2021": 0.007768821916584121,
+  "availability_rule": "past forecast used only if origin + horizon < current origin"
+}

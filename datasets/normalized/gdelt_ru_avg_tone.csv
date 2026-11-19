@@ -1,0 +1,2 @@
+date,value,series,unit,source_url,raw_sha256,ingested_at,vintage,availability_basis,available_at
+2015-01-01,2.4980848996984433,gdelt_ru_avg_tone,score,https://data.gdeltproject.org/events/20150101.export.CSV.zip,cc5337e3b67ffac6e8bb11738125a2a67ef162219ad7bc6d581bbada2087dd8d,2026-11-17T13:49:39.154737+00:00,cc5337e3b67ffac6e8bb11738125a2a67ef162219ad7bc6d581bbada2087dd8d,conservative_daily_batch,2015-01-02 21:00:00+00:00

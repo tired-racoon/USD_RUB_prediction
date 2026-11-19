@@ -1,0 +1,24 @@
+{
+  "h4_selected": {
+    "stage": "H4",
+    "variant": "pilot_plus_calendar",
+    "columns": 30,
+    "cv_relative_rmse": 0.9228603441927865
+  },
+  "h5_selected": {
+    "stage": "H5",
+    "variant": "group_pca",
+    "columns": 30,
+    "cv_relative_rmse": 0.9226600319831355
+  },
+  "target": "log_return",
+  "shrink_alpha": 0.9500000000000001,
+  "feature_screening_end_exclusive": "2021-01-01",
+  "dataset_sha256": "d0f3d02c8d2ab701e982b14f57b52d2f8cf8eee1fd3c27f8aa155632f32414b3",
+  "test_first": "2025-01-01",
+  "test_last": "2026-11-11"
+}
+model
+h4_features    0.940937
+h5_pca         0.943739
+Name: relative_rmse, dtype: float64

@@ -1,0 +1,14 @@
+   kind  lookback conditioning  dynamic_fraction         weights  cv_relative_rmse  complexity_rank
+ static         0         none              0.00 [0.0, 1.0, 0.0]          0.922860                0
+dynamic        45   volatility              0.25 [0.0, 1.0, 0.0]          0.924095                1
+dynamic        45       regime              0.25 [0.0, 1.0, 0.0]          0.924095                1
+dynamic        45        error              0.25 [0.0, 1.0, 0.0]          0.924111                1
+dynamic        90        error              0.25 [0.0, 1.0, 0.0]          0.924158                1
+dynamic       180        error              0.25 [0.0, 1.0, 0.0]          0.924436                1
+dynamic        90       regime              0.25 [0.0, 1.0, 0.0]          0.924544                1
+dynamic        90   volatility              0.25 [0.0, 1.0, 0.0]          0.924544                1
+dynamic       180       regime              0.25 [0.0, 1.0, 0.0]          0.924692                1
+dynamic       180   volatility              0.25 [0.0, 1.0, 0.0]          0.924695                1
+dynamic        45   volatility              0.50 [0.0, 1.0, 0.0]          0.927421                1
+dynamic        45       regime              0.50 [0.0, 1.0, 0.0]          0.927422                1
+{'winner': {'kind': 'static', 'lookback': 0, 'conditioning': 'none', 'dynamic_fraction': 0.0, 'weights': [0.0, 1.0, 0.0], 'cv_relative_rmse': 0.9228603441927865, 'complexity_rank': 0}, 'static_weights': [0.0, 1.0, 0.0], 'static_cv_relative_rmse': 0.9228603441927865, 'volatility_threshold_pre_2021': 0.007768821916584121, 'availability_rule': 'past forecast used only if origin + horizon < current origin'}

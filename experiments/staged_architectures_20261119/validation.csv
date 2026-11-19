@@ -1,0 +1,13 @@
+model,cv_relative_rmse
+ridge,0.9228603441927865
+ridge_histboost_blend_0,0.9228603441927865
+ridge_histboost_blend_0.25,0.9381875290253169
+elasticnet,0.943647863759599
+catboost,0.9570316331987712
+ridge_histboost_blend_0.5,0.9716177833999919
+ridge_histboost_blend_0.75,1.0184421515090873
+lightgbm,1.0625943396848545
+ridge_plus_insample_residual_boost,1.0659614185313513
+histboost,1.0749503034576477
+ridge_histboost_blend_1,1.0749503034576477
+ridge_plus_oof_residual_boost,1.0946583648931347

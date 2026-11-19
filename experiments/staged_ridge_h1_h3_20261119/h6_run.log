@@ -1,0 +1,22 @@
+/Users/vadimbatalev/Documents/programming/s21/base/lib/python3.13/site-packages/joblib/externals/loky/backend/context.py:131: UserWarning: Could not find the number of physical cores for the following reason:
+invalid literal for int() with base 10: ''
+Returning the number of logical cores instead. You can silence this warning by setting LOKY_MAX_CPU_COUNT to the number of cores you want to use.
+  warnings.warn(
+  File "/Users/vadimbatalev/Documents/programming/s21/base/lib/python3.13/site-packages/joblib/externals/loky/backend/context.py", line 249, in _count_physical_cores
+    cpu_count_physical = _count_physical_cores_darwin()
+  File "/Users/vadimbatalev/Documents/programming/s21/base/lib/python3.13/site-packages/joblib/externals/loky/backend/context.py", line 318, in _count_physical_cores_darwin
+    return int(cpu_info)
+                             model  cv_relative_rmse
+                             ridge          0.922860
+           ridge_histboost_blend_0          0.922860
+        ridge_histboost_blend_0.25          0.938188
+                        elasticnet          0.943648
+                          catboost          0.957032
+         ridge_histboost_blend_0.5          0.971618
+        ridge_histboost_blend_0.75          1.018442
+                          lightgbm          1.062594
+ridge_plus_insample_residual_boost          1.065961
+                         histboost          1.074950
+           ridge_histboost_blend_1          1.074950
+     ridge_plus_oof_residual_boost          1.094658
+{'winner': {'model': 'ridge', 'cv_relative_rmse': 0.9228603441927865}, 'alpha': 0.9500000000000001, 'feature_panel': 'pilot_plus_calendar', 'test_start': '2025-01-01', 'test_count': 680, 'lightgbm_status': 'evaluated'}
