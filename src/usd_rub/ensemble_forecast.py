@@ -1,4 +1,4 @@
-"""Основной прогноз USD/RUB с классической смесью и t0-gamma."""
+"""Основной прогноз USD/RUB с t0-gamma и рыночной поправкой XGBoost."""
 
 import json
 from hashlib import file_digest
@@ -10,13 +10,20 @@ import pandas as pd
 from usd_rub.backtest import daily_target
 from usd_rub.fixing_calendar import HORIZONS, apply_calendar
 from usd_rub.freshness import require_current
+from usd_rub.market_correction import (
+    MARKET_BUNDLE,
+    MARKET_FRACTION,
+    load_market_bundle,
+    market_forecast,
+)
 from usd_rub.ml_dataset import feature_panels, read_dataset
 from usd_rub.ml_experiment import Candidate, fit_predict, specific_features, to_levels
 from usd_rub.ml_features import load_panel
 from usd_rub.storage import input_fingerprints, read_series
 from usd_rub.t0_gamma import load_t0_gamma, market_inputs
 
-MODEL = "ensemble_t0_gamma"
+BASE_MODEL = "ensemble_t0_gamma"
+MODEL = "ensemble_t0_gamma_xgb_market"
 CLASSICAL = (
     (Candidate("ridge", "pilot", None, 0.15), 0.43838276164287915, 1.0),
     (Candidate("histboost", "market", 1460, 3), 0.3844272108930251, 0.75),
@@ -97,6 +104,17 @@ def run_forecast(args, today):
     split = target.index.searchsorted(cutoff)
     if split <= HORIZONS[-1]:
         raise ValueError("До --train-before нет завершённых семидневных наблюдений")
+    name, correction = BASE_MODEL, {}
+    if not args.base_only:
+        models, metadata = load_market_bundle()
+        if cutoff < pd.Timestamp(metadata["trained_before"]):
+            raise ValueError(
+                f"Поправка XGBoost обучена до {metadata['trained_before']}. "
+                "Для более ранней границы используйте --base-only"
+            )
+        name = MODEL
+        correction = {"market_correction": {"fraction": MARKET_FRACTION, **metadata}}
+        paths.append(MARKET_BUNDLE)
     query = target.index[-1:]
     calendar = json.loads(Path(args.calendar).read_text())
     level, past, known, changes = market_inputs(target, panels["extended"], query, calendar)
@@ -109,9 +127,13 @@ def run_forecast(args, today):
         classical = classical_predictions(panels, levels, split, np.array([len(levels) - 1]))
     gamma = load_t0_gamma(checkpoint)(level, past, known)
     prediction = blend_predictions(classical, gamma, levels[-1:], changes)
+    if not args.base_only:
+        prediction = market_forecast(
+            models, panels["extended"].loc[query], prediction, levels[-1:], changes
+        )
     result = pd.DataFrame(
         {
-            "model": MODEL,
+            "model": name,
             "origin": origin,
             "target_date": origin + pd.to_timedelta(HORIZONS, unit="D"),
             "horizon": HORIZONS,
@@ -119,7 +141,7 @@ def run_forecast(args, today):
         }
     )
     run = {
-        "model": MODEL,
+        "model": name,
         "origin": str(origin.date()),
         "train_before": str(cutoff.date()),
         "classical": {cfg.name: {"weight": w, "shrink": s} for cfg, w, s in CLASSICAL},
@@ -129,5 +151,6 @@ def run_forecast(args, today):
             "weights_by_horizon": GAMMA_WEIGHTS.tolist(),
         },
         "inputs": input_fingerprints([*paths, args.calendar, checkpoint / "config.json"]),
+        **correction,
     }
     return result, run

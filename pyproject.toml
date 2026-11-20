@@ -28,6 +28,7 @@ usd-rub = "usd_rub.cli:main"
 ml = [
     "catboost>=1.2.8,<2",
     "scikit-learn>=1.6,<2",
+    "xgboost>=3,<4",
 ]
 news = [
     "pyarrow>=17,<27",
@@ -45,6 +46,7 @@ ensemble = [
     "mlx==0.32.4 ; platform_machine == 'arm64' and sys_platform == 'darwin'",
     "scikit-learn>=1.6,<2",
     "tfc-t0[mlx]==0.6.1 ; platform_machine == 'arm64' and sys_platform == 'darwin'",
+    "xgboost>=3,<4",
 ]
 
 [tool.hatch.build.targets.wheel]
