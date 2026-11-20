@@ -1,4 +1,4 @@
-"""Основной прогноз USD/RUB с t0-gamma и рыночной поправкой XGBoost."""
+"""Основной прогноз USD/RUB с t0-gamma и макропоправкой XGBoost."""
 
 import json
 from hashlib import file_digest
@@ -11,19 +11,28 @@ from usd_rub.backtest import daily_target
 from usd_rub.fixing_calendar import HORIZONS, apply_calendar
 from usd_rub.freshness import require_current
 from usd_rub.market_correction import (
+    CORRECTION_FRACTION,
+    MACRO_BUNDLE,
     MARKET_BUNDLE,
-    MARKET_FRACTION,
-    load_market_bundle,
-    market_forecast,
+    MARKET_FEATURES,
+    corrected_forecast,
+    load_correction_bundle,
 )
 from usd_rub.ml_dataset import feature_panels, read_dataset
 from usd_rub.ml_experiment import Candidate, fit_predict, specific_features, to_levels
 from usd_rub.ml_features import load_panel
 from usd_rub.storage import input_fingerprints, read_series
 from usd_rub.t0_gamma import load_t0_gamma, market_inputs
+from usd_rub.theory_features import (
+    FUNDAMENTAL_SIGNS,
+    MACRO_CORRECTION_FEATURES,
+    read_theory_sources,
+    theory_features,
+)
 
 BASE_MODEL = "ensemble_t0_gamma"
-MODEL = "ensemble_t0_gamma_xgb_market"
+MARKET_MODEL = "ensemble_t0_gamma_xgb_market"
+MODEL = "ensemble_t0_gamma_xgb_macro"
 CLASSICAL = (
     (Candidate("ridge", "pilot", None, 0.15), 0.43838276164287915, 1.0),
     (Candidate("histboost", "market", 1460, 3), 0.3844272108930251, 0.75),
@@ -40,6 +49,7 @@ def classical_predictions(panels, levels, split, origins):
     prediction = np.zeros((len(origins), len(HORIZONS)))
     for candidate, weight, shrink in CLASSICAL:
         features = specific_features(panels, candidate.setup)
+        features = features.loc[:, ~features.columns.str.contains("__theory_", regex=False)]
         supported = features.iloc[:split].notna().mean().ge(MIN_HIT_RATE)
         raw, _ = fit_predict(
             features.loc[:, supported].to_numpy(dtype=float),
@@ -84,6 +94,24 @@ def forecast_inputs(args, today):
     return target, panels, [data_dir / "normalized/usd_rub.csv", Path(args.config), *paths]
 
 
+def macro_panel(args, panel, target):
+    """Использовать рассчитанные макропризнаки или собрать их к дате прогноза."""
+    if all(name in panel for name in MACRO_CORRECTION_FEATURES):
+        return panel, []
+    data_dir = Path(args.data_dir)
+    fred_root = args.fred_cache or data_dir / "model_runtime" / "theory_fred"
+    sources, paths = read_theory_sources(
+        data_dir, fred_root, target.index, frozen=args.fred_cache is not None
+    )
+    lags = json.loads(args.config.read_text())["assumed_lags"]
+    fundamental, market = theory_features(panel, target, sources, lags)
+    new = fundamental.join(market)
+    return panel.drop(columns=panel.columns.intersection(new.columns)).join(new), [
+        args.config,
+        *paths,
+    ]
+
+
 def run_forecast(args, today):
     """Вычислить основной прогноз и записать его параметры в метаданные."""
     try:
@@ -105,17 +133,28 @@ def run_forecast(args, today):
     if split <= HORIZONS[-1]:
         raise ValueError("До --train-before нет завершённых семидневных наблюдений")
     name, correction = BASE_MODEL, {}
+    panel = panels["extended"]
+    query = target.index[-1:]
+    models = None
     if not args.base_only:
-        models, metadata = load_market_bundle()
+        if args.market_only:
+            name, bundle, columns = MARKET_MODEL, MARKET_BUNDLE, MARKET_FEATURES
+            key, signs = "market_correction", None
+        else:
+            name, bundle, columns = MODEL, MACRO_BUNDLE, MACRO_CORRECTION_FEATURES
+            key, signs = "macro_correction", FUNDAMENTAL_SIGNS
+        models, metadata = load_correction_bundle(bundle, columns, signs)
         if cutoff < pd.Timestamp(metadata["trained_before"]):
             raise ValueError(
                 f"Поправка XGBoost обучена до {metadata['trained_before']}. "
                 "Для более ранней границы используйте --base-only"
             )
-        name = MODEL
-        correction = {"market_correction": {"fraction": MARKET_FRACTION, **metadata}}
-        paths.append(MARKET_BUNDLE)
-    query = target.index[-1:]
+        correction = {key: {"fraction": CORRECTION_FRACTION, **metadata}}
+        paths.append(bundle)
+        if not args.market_only:
+            panel, sources = macro_panel(args, panel, target)
+            paths.extend(sources)
+        features = panel.loc[query, list(columns)]
     calendar = json.loads(Path(args.calendar).read_text())
     level, past, known, changes = market_inputs(target, panels["extended"], query, calendar)
 
@@ -127,10 +166,8 @@ def run_forecast(args, today):
         classical = classical_predictions(panels, levels, split, np.array([len(levels) - 1]))
     gamma = load_t0_gamma(checkpoint)(level, past, known)
     prediction = blend_predictions(classical, gamma, levels[-1:], changes)
-    if not args.base_only:
-        prediction = market_forecast(
-            models, panels["extended"].loc[query], prediction, levels[-1:], changes
-        )
+    if models is not None:
+        prediction = corrected_forecast(models, features, prediction, levels[-1:], changes)
     result = pd.DataFrame(
         {
             "model": name,

@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 
 from usd_rub.features import asof_series
+from usd_rub.market_correction import MARKET_FEATURES
+from usd_rub.sources.markets import fetch_fred
+from usd_rub.storage import Client, read_series, save_series
 
 FRED = {
     "us_m2": ("M2SL", "USD bn"),
@@ -26,15 +29,50 @@ LOCAL = (
     *PEERS,
 )
 FUNDAMENTAL_SIGNS = {
-    "rates__theory_policy_gap": -1,
     "macro__theory_inflation_gap_mom": 1,
     "macro__theory_inflation_gap_yoy": 1,
     "macro__theory_m2_growth_gap": 1,
     "macro__theory_trade_balance_gap": -1,
     "macro__theory_production_growth_gap": -1,
+    "rates__theory_policy_gap": -1,
 }
 FUNDING = "global__theory_cp_bill_spread_3m"
+GLOBAL_FX_FEATURES = (
+    FUNDING,
+    "global__theory_us_epu_7d",
+    "global__theory_vix_level",
+    "global__theory_em_usd_return_21d",
+    "global__theory_em_fx_abs_return_21d",
+    "fx__theory_rub_relative_momentum_21d",
+    "fx__theory_rub_momentum_63d",
+    "fx__theory_ppp_value_gap",
+    "news__gpr_daily_shock_30d",
+)
+MACRO_CORRECTION_FEATURES = (*MARKET_FEATURES, *GLOBAL_FX_FEATURES, *FUNDAMENTAL_SIGNS)
 LAGS = {"cpi": 55, "money": 65, "trade": 95, "production": 75, "epu": 7, "funding": 4}
+
+
+def read_theory_sources(data_dir, fred_root, dates, *, frozen):
+    """Взять локальные ряды и зафиксированный или текущий ответ FRED."""
+    paths = [data_dir / "normalized" / f"{name}.csv" for name in LOCAL]
+    frames = {name: read_series(data_dir, name) for name in LOCAL}
+    start = (dates[0] - pd.Timedelta(days=730)).date()
+    end = dates[-1].date()
+    with Client(fred_root) as client:
+        for name, (code, unit) in FRED.items():
+            path = fred_root / "normalized" / f"{name}.csv"
+            if frozen and path.is_file():
+                frames[name] = read_series(fred_root, name)
+            else:
+                frames[name] = fetch_fred(client, code, name, unit, start, end)
+                if frames[name].empty:
+                    raise ValueError(f"FRED не вернул наблюдения {code}")
+                if frozen:
+                    save_series(frames[name], fred_root)
+                else:
+                    path = fred_root / "raw" / "objects" / frames[name].raw_sha256.iloc[0]
+            paths.append(path)
+    return frames, paths
 
 
 def latest_values(frame):

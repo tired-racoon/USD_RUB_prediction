@@ -17,10 +17,17 @@ from usd_rub.ensemble_forecast import blend_predictions
 from usd_rub.market_correction import MARKET_FEATURES, XGB_PARAMS, fit_corrections, predict_levels
 from usd_rub.ml_dataset import feature_panels
 from usd_rub.ml_experiment import relative_rmse, selection_loss
-from usd_rub.sources.markets import fetch_fred
 from usd_rub.sources.news_archive import write_csv
-from usd_rub.storage import Client, input_fingerprints, read_series, save_series
-from usd_rub.theory_features import FRED, FUNDAMENTAL_SIGNS, FUNDING, LAGS, LOCAL, theory_features
+from usd_rub.storage import input_fingerprints
+from usd_rub.theory_features import (
+    FRED,
+    FUNDAMENTAL_SIGNS,
+    FUNDING,
+    LAGS,
+    MACRO_CORRECTION_FEATURES,
+    read_theory_sources,
+    theory_features,
+)
 
 PRIMARY = "ensemble_t0_gamma"
 GAMMA = "t0_gamma/market_calendar"
@@ -29,34 +36,14 @@ FRACTIONS = (0.0, 0.25, 0.5, 1.0)
 
 def read_sources(args, dates):
     """Кэшировать FRED отдельно от рабочего набора источников."""
-    fred_root = args.output / "fred"
-    paths = [args.data_dir / "normalized" / f"{name}.csv" for name in LOCAL]
-    frames = {name: read_series(args.data_dir, name) for name in LOCAL}
-    with Client(fred_root) as client:
-        for name, (code, unit) in FRED.items():
-            path = fred_root / "normalized" / f"{name}.csv"
-            if not path.exists():
-                series = fetch_fred(
-                    client,
-                    code,
-                    name,
-                    unit,
-                    dates[0].date() - pd.Timedelta(days=730),
-                    dates[-1].date(),
-                )
-                if series.empty:
-                    raise ValueError(f"FRED не вернул наблюдения {code}")
-                save_series(series, fred_root)
-            frames[name] = read_series(fred_root, name)
-            paths.append(path)
-    return frames, paths
+    return read_theory_sources(args.data_dir, args.output / "fred", dates, frozen=True)
 
 
 def predictor_sets(panel, fundamental, market):
     """Оставить одинаковые наборы столбцов в паре с ограничениями и без них."""
     control = panel[list(MARKET_FEATURES)]
     global_fx = control.join(market).join(panel[["news__gpr_daily_shock_30d"]])
-    all_features = global_fx.join(fundamental)
+    all_features = global_fx.join(fundamental)[list(MACRO_CORRECTION_FEATURES)]
     return {
         "market": (control, {}),
         "fundamentals": (control.join(fundamental), {}),

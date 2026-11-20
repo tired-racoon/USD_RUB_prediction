@@ -353,7 +353,10 @@ def main(argv=None):
     ensemble.add_argument("--checkpoint", type=Path, help="Каталог локального чекпойнта t0-gamma")
     ensemble.add_argument("--end", help="Дата прогноза в формате ГГГГ-ММ-ДД")
     ensemble.add_argument("--train-before", help="Граница обучающих целей для повтора holdout")
-    ensemble.add_argument("--base-only", action="store_true", help="База 85/15 с t0-gamma")
+    variant = ensemble.add_mutually_exclusive_group()
+    variant.add_argument("--base-only", action="store_true", help="База 85/15 с t0-gamma")
+    variant.add_argument("--market-only", action="store_true", help="База с рыночной поправкой")
+    ensemble.add_argument("--fred-cache", type=Path, help="Зафиксированная выгрузка FRED")
     ensemble.add_argument("--output", type=Path, default=Path("data/reports/forecast_ensemble.csv"))
     for command in ("backtest", "forecast"):
         model = sub.add_parser(command)

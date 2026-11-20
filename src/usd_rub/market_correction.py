@@ -16,8 +16,9 @@ MARKET_FEATURES = (
     "fx__si_front_settle_basis",
     "global__synthetic_basis",
 )
-MARKET_FRACTION = 0.25
+CORRECTION_FRACTION = 0.25
 MARKET_BUNDLE = Path(__file__).with_name("market_correction.json.gz")
+MACRO_BUNDLE = Path(__file__).with_name("macro_correction.json.gz")
 XGB_PARAMS = {
     "n_estimators": 80,
     "max_depth": 2,
@@ -58,32 +59,39 @@ def predict_levels(models, features, baseline, last):
     return np.column_stack(predictions)
 
 
-def market_forecast(models, panel, baseline, last, changes):
+def corrected_forecast(models, features, baseline, last, changes):
     """Добавить четверть поправки и согласовать горизонты по календарю ЦБ."""
-    corrected = predict_levels(models, panel[list(MARKET_FEATURES)], baseline, last)
+    corrected = predict_levels(models, features, baseline, last)
     prediction = apply_calendar(
-        baseline + MARKET_FRACTION * (corrected - baseline), last, changes, pool=True
+        baseline + CORRECTION_FRACTION * (corrected - baseline), last, changes, pool=True
     )
     if not (np.isfinite(prediction).all() and (prediction > 0).all()):
-        raise ValueError("Рыночная поправка дала некорректный прогноз")
+        raise ValueError("Поправка XGBoost дала некорректный прогноз")
     return prediction
 
 
-def load_market_bundle(path=MARKET_BUNDLE):
-    """Загрузить обученные деревья и проверить порядок рыночных входов."""
+def market_forecast(models, panel, baseline, last, changes):
+    """Применить поправку по рыночным признакам."""
+    return corrected_forecast(models, panel[list(MARKET_FEATURES)], baseline, last, changes)
+
+
+def load_correction_bundle(path, features, signs=None):
+    """Загрузить деревья и проверить порядок входов и ограничения."""
     try:
         from xgboost import Booster
     except ImportError as exc:
-        raise ValueError("Для рыночной поправки нужен uv run --extra ensemble") from exc
+        raise ValueError("Для поправки XGBoost нужен uv run --extra ensemble") from exc
 
     with gzip.open(path, "rt", encoding="utf-8") as stream:
         bundle = json.load(stream)
     models = []
-    expected = [*MARKET_FEATURES, "anchor_return"]
+    expected = [*features, "anchor_return"]
     if bundle["format_version"] != 1:
         raise ValueError("Неизвестный формат набора XGBoost")
     if bundle["horizons"] != HORIZONS.tolist() or bundle["features"] != expected:
         raise ValueError("Горизонты или признаки набора XGBoost расходятся со спецификацией")
+    if bundle.get("monotone_constraints", {}) != (signs or {}):
+        raise ValueError("Ограничения набора XGBoost расходятся со спецификацией")
     for entry in bundle["boosters"]:
         model = Booster(params={"nthread": XGB_PARAMS["n_jobs"]})
         model.load_model(bytearray(json.dumps(entry, separators=(",", ":")).encode("utf-8")))
@@ -93,3 +101,8 @@ def load_market_bundle(path=MARKET_BUNDLE):
     if len(models) != len(HORIZONS):
         raise ValueError("Набор XGBoost должен содержать семь моделей")
     return models, {key: value for key, value in bundle.items() if key != "boosters"}
+
+
+def load_market_bundle(path=MARKET_BUNDLE):
+    """Загрузить контрольную рыночную поправку."""
+    return load_correction_bundle(path, MARKET_FEATURES)
