@@ -6,7 +6,9 @@ import pytest
 
 from usd_rub.ml_dataset import clean_dataset, feature_hit_rates, feature_panels
 from usd_rub.ml_experiment import baseline_predictions, eligible_rows
+from usd_rub.ml_features import rvi_features
 from usd_rub.models import AutoRegression
+from usd_rub.storage import Payload, observations
 
 
 def test_training_labels_mature_before_the_split_for_each_horizon():
@@ -44,6 +46,25 @@ def test_extended_column_replaces_strict_column_including_missing_dates():
     assert panels["strict"].columns.tolist() == ["fx__rate"]
     assert panels["extended"].columns.tolist() == ["fx__rate", "macro__rate"]
     assert pd.isna(panels["extended"]["fx__rate"].iloc[0])
+
+
+def test_rvi_closing_price_lags_one_day_and_expires_after_a_week():
+    payload = Payload(b"", "https://example.com/", "hash", "2025-02-01T00:00:00Z")
+    close = observations(
+        ["2014-04-15", "2014-04-16", "2014-04-22"],
+        [20, 30, 45],
+        "rvi",
+        "index points",
+        payload,
+        "conservative_daily_close",
+        lag_days=1,
+    )
+    features = rvi_features(close, pd.date_range("2014-04-15", "2014-04-30"))
+    assert pd.isna(features.loc["2014-04-16", "markets__rvi_level"])
+    assert features.loc["2014-04-22", "markets__rvi_level"] == 30
+    assert features.loc["2014-04-23", "markets__rvi_change_5"] == pytest.approx(np.log(1.5))
+    assert features.loc["2014-04-29", "markets__rvi_age"] == 7
+    assert features.loc["2014-04-30"].isna().all()
 
 
 def test_baseline_updates_observed_level_while_training_parameters_stay_frozen():

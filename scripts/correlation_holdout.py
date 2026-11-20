@@ -10,12 +10,14 @@ from scipy.stats import rankdata
 from sklearn.linear_model import Ridge
 from threadpoolctl import threadpool_limits
 
+from usd_rub.fixing_calendar import HORIZONS as HORIZONS
+from usd_rub.fixing_calendar import apply_calendar as apply_calendar
+from usd_rub.fixing_calendar import fixing_mask as fixing_mask
 from usd_rub.ml_dataset import feature_panels, read_dataset
 from usd_rub.ml_experiment import relative_rmse, selection_loss
 from usd_rub.sources.news_archive import write_csv
 from usd_rub.storage import input_fingerprints
 
-HORIZONS = np.arange(1, 8)
 FOCUS = {
     "fx__cny_basis": "Спред CNY/RUB",
     "global__synthetic_basis": "Кросс USD/RUB через юань",
@@ -237,45 +239,6 @@ def supplementary_signals(panel, calibration, test):
                         }
                     )
     return pd.DataFrame(rows)
-
-
-def fixing_mask(origins, calendar, official):
-    """Проверить рабочий день расчёта до каждой прогнозируемой календарной даты."""
-    fixed = set(calendar["fixed_days_off"])
-    years = {
-        int(year): (
-            pd.Timestamp(info["available_from"]),
-            set(info["days_off"]),
-            set(info["workdays"]),
-        )
-        for year, info in calendar["years"].items()
-    }
-    mask = np.empty((len(origins), len(HORIZONS)), dtype=bool)
-    for i, origin in enumerate(origins):
-        for j, h in enumerate(HORIZONS):
-            day = origin + pd.Timedelta(days=int(h) - 1)
-            working = day.dayofweek < 5
-            if official:
-                stamp = day.strftime("%m-%d")
-                working = working and stamp not in fixed
-                if day.year in years:
-                    available, days_off, workdays = years[day.year]
-                    if origin >= available:
-                        working = (working and stamp not in days_off) or stamp in workdays
-            mask[i, j] = working
-    return mask
-
-
-def apply_calendar(prediction, last, changes, pool):
-    """Связать даты с одним курсом и сохранить известный курс до нового расчёта."""
-    adjusted = np.empty_like(prediction)
-    ids = np.cumsum(changes, axis=1)
-    for i, (row, groups) in enumerate(zip(prediction, ids, strict=True)):
-        for group in np.unique(groups):
-            same = groups == group
-            value = row[same].mean() if pool else row[same][0]
-            adjusted[i, same] = last[i] if group == 0 else value
-    return adjusted
 
 
 def residual_adjustment(panel, train, query, use_embedding=False):

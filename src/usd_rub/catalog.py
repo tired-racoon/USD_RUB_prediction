@@ -37,6 +37,14 @@ SOURCES = {
                 ("rgbi", "Индекс гособлигаций RGBI", "SNDX", "RGBI", "index points", ""),
                 ("moexog", "Индекс нефти и газа MOEXOG", "SNDX", "MOEXOG", "index points", ""),
                 (
+                    "rvi",
+                    "Индекс волатильности российского рынка RVI",
+                    "RTSI",
+                    "RVI",
+                    "index points",
+                    "Опционы на фьючерс РТС, история с 18.11.2013",
+                ),
+                (
                     "rusfar_cny",
                     "Ставка RUSFAR CNY overnight",
                     "MMIX",
@@ -248,6 +256,13 @@ SOURCES = {
             "extended",
             "В полученном ISS-ответе ряд начинается 01.08.2019; десяти лет истории нет",
         ),
+        Source(
+            "moex_si_options",
+            "Подразумеваемая волатильность и risk reversal опционов на USD/RUB",
+            "si_options",
+            profile="research",
+            limitation="Маржируемые опционы Si, месячный архив теоретической волатильности ISS",
+        ),
         Source("cboe_vix", "VIX от Cboe", "cboe"),
         Source(
             "nbs_pmi",
@@ -418,6 +433,10 @@ def fetch(source: Source, client, start, end):
         result = markets.fetch_fred(client, start=start, end=end, **config)
     elif source.kind == "moex":
         result = markets.fetch_moex(client, config, start, end)
+    elif source.kind == "si_options":
+        from usd_rub.sources.si_options import fetch_si_options
+
+        result = fetch_si_options(client.root, str(start), str(end), refresh=client.refresh)
     elif source.kind == "rosstat":
         result = tables.fetch_rosstat(client, config, start, end)
     elif source.kind == "minfin":

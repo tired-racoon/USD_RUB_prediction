@@ -10,14 +10,14 @@ from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
-from correlation_holdout import HORIZONS, apply_calendar, fixing_mask, forecasts
+from correlation_holdout import HORIZONS, apply_calendar, forecasts
 
 from usd_rub.ml_dataset import EXTENDED_PREFIX, feature_panels
 from usd_rub.ml_experiment import relative_rmse
 from usd_rub.sources.news_archive import write_csv
 from usd_rub.storage import input_fingerprints
+from usd_rub.t0_gamma import FEATURES, LOOKBACK, load_t0_gamma, market_inputs
 
-FEATURES = ("fx__cny_basis", "global__synthetic_basis", "fx__si_front_settle_change_1")
 MODELS = (
     "timestral_28m",
     "tirex_2",
@@ -29,7 +29,6 @@ MODELS = (
 )
 MODES = ("usd_only", "market_calendar")
 HORIZON = len(HORIZONS)
-LOOKBACK = 256
 
 
 def place_ci_blocks_on_mps(backbone, torch):
@@ -56,24 +55,7 @@ def place_ci_blocks_on_mps(backbone, torch):
 def load_model(name, path, device, batch_size):
     """Загрузить модель и привести её медианный прогноз к формату [дата, горизонт]."""
     if name == "t0_gamma" and device == "mlx":
-        import mlx.core as mx
-        from t0.mlx import T0Forecaster, TimeSeries, VariateType
-
-        model = T0Forecaster.from_pretrained(str(path)).compile()
-
-        def predict(target, past, known):
-            if past is None:
-                return np.array(model.predict(target, HORIZON, [0.5]).median)
-            context = np.concatenate((target[:, None], past), axis=1)
-            series = TimeSeries.from_array(mx.array(context), mx.array(known), horizon=HORIZON)
-            rows = np.arange(series.variates.shape[0])
-            historical = (rows < len(target) * context.shape[1]) & (rows % context.shape[1] != 0)
-            series.variate_type = mx.where(
-                mx.array(historical[:, None]), VariateType.HISTORICAL, series.variate_type
-            )
-            return np.array(model.predict(series, HORIZON, [0.5]).median)
-
-        return predict
+        return load_t0_gamma(path)
 
     import torch
 
@@ -205,16 +187,8 @@ def experiment_inputs(args, *, use_oof=True):
     if not dataset.index.equals(pd.date_range(dataset.index[0], periods=len(dataset), freq="D")):
         raise ValueError("В датасете пропущены календарные дни")
     calendar = json.loads(args.calendar.read_text())
-    changes = fixing_mask(dates, calendar, True)
-    schedule = fixing_mask(dataset.index - pd.Timedelta(days=1), calendar, True)[:, 0]
-    positions = dataset.index.get_indexer(dates)
-    history = positions[:, None] - np.arange(LOOKBACK - 1, -1, -1)
-    if history.min() < 0:
-        raise ValueError("Недостаточно истории USD/RUB")
-    features = feature_panels(dataset)["extended"].loc[:, list(FEATURES)].to_numpy(np.float32)
-    level = dataset.usd_rub.to_numpy(np.float32)[history]
-    historical = features[history].transpose(0, 2, 1).copy()
-    known = np.concatenate((schedule[history], changes), axis=1)[:, None].astype(np.float32)
+    panel = feature_panels(dataset)["extended"]
+    level, historical, known, changes = market_inputs(dataset.usd_rub, panel, dates, calendar)
     np.testing.assert_array_equal(level[:, -1], last.astype(np.float32))
     return dates, actual, last, base, changes, level, historical, known
 

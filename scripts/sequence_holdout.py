@@ -44,10 +44,11 @@ SEED = 191
 class SequenceRegressor(nn.Module):
     """Небольшая модель поправки к случайному блужданию."""
 
-    def __init__(self, architecture, features, horizons):
+    def __init__(self, architecture, features, horizons, context_features=0):
         super().__init__()
         hidden = 24
         self.architecture = architecture
+        self.context_scale = (2 * hidden / context_features) ** 0.5 if context_features else 1
         self.project = nn.Sequential(nn.Linear(features, hidden), nn.LayerNorm(hidden), nn.GELU())
         if architecture == "lstm":
             self.temporal = nn.LSTM(hidden, hidden, batch_first=True)
@@ -69,12 +70,15 @@ class SequenceRegressor(nn.Module):
         else:
             raise ValueError(f"Неизвестная архитектура {architecture}")
         self.head = nn.Sequential(
-            nn.Linear(2 * hidden, hidden), nn.GELU(), nn.Dropout(0.1), nn.Linear(hidden, horizons)
+            nn.Linear(2 * hidden + context_features, hidden),
+            nn.GELU(),
+            nn.Dropout(0.1),
+            nn.Linear(hidden, horizons),
         )
         nn.init.zeros_(self.head[-1].weight)
         nn.init.zeros_(self.head[-1].bias)
 
-    def forward(self, sequences):
+    def forward(self, sequences, context=None):
         steps = self.project(sequences)
         if self.architecture in {"gru", "lstm"}:
             encoded = self.temporal(steps)[0][:, -1]
@@ -82,7 +86,18 @@ class SequenceRegressor(nn.Module):
             encoded = self.temporal(steps.transpose(1, 2)).mean(dim=2)
         else:
             encoded = self.temporal(steps + self.position)[:, -1]
-        return self.head(torch.cat([steps[:, -1], encoded], dim=1))
+        features = (steps[:, -1], encoded)
+        if context is not None:
+            features = (*features, context * self.context_scale)
+        return self.head(torch.cat(features, dim=1))
+
+
+def normalized_targets(levels, train, horizons):
+    """Подготовить доходности и веса для обучения поправки к текущему курсу."""
+    targets = actual_at(levels, train, horizons) / levels[train, None] - 1
+    weights = (levels[train] / np.median(levels[train])) ** 2
+    scale = np.sqrt(np.average(targets**2, axis=0, weights=weights)).clip(min=1e-8)
+    return (targets / scale).clip(-5, 5), weights, scale
 
 
 def prepare_fold(panel, levels, cutoff, horizons, min_hit_rate):
@@ -111,10 +126,7 @@ def prepare_fold(panel, levels, cutoff, horizons, min_hit_rate):
     if len(keys) < TOP_K:
         raise ValueError(f"Для отбора {TOP_K} признаков доступны только {len(keys)}")
 
-    targets = actual_at(levels, train, horizons) / levels[train, None] - 1
-    weights = (levels[train] / np.median(levels[train])) ** 2
-    scale = np.sqrt(np.average(targets**2, axis=0, weights=weights)).clip(min=1e-8)
-    targets = (targets / scale).clip(-5, 5)
+    targets, weights, scale = normalized_targets(levels, train, horizons)
     ranking = Ridge(alpha=0.15 * len(train))
     ranking.fit(standardized[train], targets, sample_weight=weights)
     importance = np.sqrt(np.mean(ranking.coef_**2, axis=0))
@@ -131,11 +143,16 @@ def prepare_fold(panel, levels, cutoff, horizons, min_hit_rate):
     return train, standardized, targets, weights, scale, order, columns
 
 
-def train_sequence(architecture, width, x_train, y_train, weights, x_query, epochs, device):
+def train_sequence(
+    architecture, width, x_train, y_train, weights, x_query, epochs, device, *, context=None
+):
     """Один прогон обучения с прогнозами на заранее заданных эпохах."""
     torch.manual_seed(SEED)
     rng = np.random.default_rng(SEED)
-    model = SequenceRegressor(architecture, width, y_train.shape[1]).to(device)
+    context_features = context[0].shape[1] if context is not None else 0
+    train_inputs = (x_train, context[0]) if context is not None else (x_train,)
+    query_inputs = (x_query, context[1]) if context is not None else (x_query,)
+    model = SequenceRegressor(architecture, width, y_train.shape[1], context_features).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=0.0015, weight_decay=0.02)
     predictions = {}
     for epoch in range(1, max(epochs) + 1):
@@ -144,7 +161,7 @@ def train_sequence(architecture, width, x_train, y_train, weights, x_query, epoc
             rng.permutation(len(x_train)), (len(x_train) - 1) // BATCH_SIZE + 1
         ):
             optimizer.zero_grad(set_to_none=True)
-            residual = model(x_train[batch]) - y_train[batch]
+            residual = model(*(value[batch] for value in train_inputs)) - y_train[batch]
             loss = (weights[batch, None] * residual.square()).mean()
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 1)
@@ -152,7 +169,8 @@ def train_sequence(architecture, width, x_train, y_train, weights, x_query, epoc
         if epoch in epochs:
             model.eval()
             with torch.inference_mode():
-                query = [model(batch).cpu().numpy() for batch in x_query.split(BATCH_SIZE)]
+                batches = zip(*(value.split(BATCH_SIZE) for value in query_inputs), strict=True)
+                query = [model(*batch).cpu().numpy() for batch in batches]
             predictions[epoch] = np.concatenate(query, axis=0)
     return predictions
 

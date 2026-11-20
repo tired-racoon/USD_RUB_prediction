@@ -10,7 +10,7 @@ import pandas as pd
 
 from usd_rub.backtest import daily_target
 from usd_rub.ml_dataset import clean_dataset, read_dataset
-from usd_rub.ml_features import load_panel
+from usd_rub.ml_features import load_panel, rvi_features
 from usd_rub.storage import read_series
 
 
@@ -91,6 +91,10 @@ if __name__ == "__main__":
         help="Дневные признаки news-features",
     )
     parser.add_argument("--min-hit-rate", type=float, default=0.5)
+    parser.add_argument("--include-rvi", action="store_true", help="Добавить признаки MOEX RVI")
+    parser.add_argument(
+        "--include-si-options", action="store_true", help="Добавить IV и RR опционов Si"
+    )
     parser.add_argument(
         "--output", type=Path, default=Path("data/reports/ml_holdout_2025_2026/dataset.csv")
     )
@@ -98,6 +102,12 @@ if __name__ == "__main__":
     source = read_dataset(args.input) if args.input else build_dataset(args.config, args.data_dir)
     for path in args.news_features:
         source = add_news_features(source, path)
+    if args.include_rvi:
+        source = source.join(rvi_features(read_series(args.data_dir, "rvi"), source.index))
+    if args.include_si_options:
+        from usd_rub.sources.si_options import si_option_features
+
+        source = source.join(si_option_features(args.data_dir, source.index))
     dataset = clean_dataset(source, args.min_hit_rate)
     write_dataset(dataset, args.output)
     rows, columns = dataset.shape

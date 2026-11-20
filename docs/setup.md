@@ -50,6 +50,25 @@ uv run python scripts/export_ml_dataset.py
 
 Последняя команда собирает очищенный CSV для ML из локальных рядов и календарей. Описания правил доступности и столбцов приведены в [отчёте эксперимента](ml_holdout_2025_2026.md). [Обновление новостного индекса](gpr_russia.md)
 
+## Основной прогноз USD/RUB
+
+Команда запускает MLX-версию t0-gamma на Mac с Apple Silicon. В каталоге `data/model_runtime/checkpoints/t0_gamma/` нужны `config.json` и `model.safetensors` проверенной ревизии `fef67abad3eed4f227c7b536a6e8ee4e9ab1080d`. Для другого расположения используется `--checkpoint`. [Подготовка чекпойнта](foundation_holdout.md#запуск-на-macbook-air-m4)
+
+```sh
+uv run --locked --extra ensemble usd-rub forecast-ensemble
+```
+
+Команда берёт последнюю известную дату из локальных рядов и обучает классические модели на доступной к ней истории. Прогноз сохраняется в `data/reports/forecast_ensemble.csv`, дата, веса и контрольные суммы входов — в соседнем JSON. Доля t0-gamma составляет 0% на 1–3 днях и 15% на 4–7 днях до усреднения по фиксингам.
+
+Для повтора отдельной даты исторического теста используется сохранённый снимок с фиксированной границей обучения.
+
+```sh
+uv run --locked --extra ensemble usd-rub forecast-ensemble \
+  --dataset datasets/usd_rub_2011_2026_full.csv.gz \
+  --end 2026-11-11 --train-before 2025-01-01 \
+  --output data/reports/forecast_ensemble_holdout.csv
+```
+
 ## Бейзлайны, факторная модель и тесты
 
 ```sh

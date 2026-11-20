@@ -346,6 +346,14 @@ def main(argv=None):
     factor.add_argument("--step", type=int, default=1)
     factor.add_argument("--alpha", type=float, default=0.05)
     factor.add_argument("--output", default="data/reports/giannone_20261118")
+    ensemble = sub.add_parser("forecast-ensemble", help="Основной прогноз USD/RUB на 1–7 дней")
+    ensemble.add_argument("--dataset", type=Path, help="Снимок признаков для исторического запуска")
+    ensemble.add_argument("--config", type=Path, default=Path("config/ml_holdout.json"))
+    ensemble.add_argument("--calendar", type=Path, default=Path("config/cbr_fixing_calendar.json"))
+    ensemble.add_argument("--checkpoint", type=Path, help="Каталог локального чекпойнта t0-gamma")
+    ensemble.add_argument("--end", help="Дата прогноза в формате ГГГГ-ММ-ДД")
+    ensemble.add_argument("--train-before", help="Граница обучающих целей для повтора holdout")
+    ensemble.add_argument("--output", type=Path, default=Path("data/reports/forecast_ensemble.csv"))
     for command in ("backtest", "forecast"):
         model = sub.add_parser(command)
         model.add_argument("--target", default="usd_rub")
@@ -443,6 +451,15 @@ def main(argv=None):
             from usd_rub.factor_backtest import run_comparison
 
             return run_comparison(args)
+        if args.command == "forecast-ensemble":
+            from usd_rub.ensemble_forecast import run_forecast
+            from usd_rub.sources.news_archive import write_csv
+
+            forecast, metadata = run_forecast(args, today)
+            write_csv(forecast, args.output)
+            write_json(args.output.with_suffix(".json"), {"created_at": utc_now(), **metadata})
+            print(f"{args.output}: прогноз на 1–7 дней от {metadata['origin']}")
+            return 0
         if args.command == "forecast":
             return forecast_command(args)
         if args.command == "import-table":

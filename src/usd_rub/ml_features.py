@@ -10,6 +10,24 @@ from usd_rub.freshness import ensure_allowed
 from usd_rub.storage import read_series
 
 
+def rvi_features(frame, dates):
+    """Добавить уровень RVI и изменения к срезу в 00:00 МСК."""
+    public = frame.loc[frame.date.ge(pd.Timestamp("2014-04-16"))]
+    aligned = asof_series(public, dates.tz_localize("Europe/Moscow"), max_age_days=7).reindex(
+        columns=["value", "age_days"]
+    )
+    level = aligned.value.where(aligned.value > 0)
+    log_level = np.log(level)
+    return pd.DataFrame(
+        {
+            "markets__rvi_level": level,
+            "markets__rvi_change_1": log_level.diff(),
+            "markets__rvi_change_5": log_level.diff(5),
+            "markets__rvi_age": aligned.age_days.where(level.notna()),
+        }
+    ).set_axis(dates)
+
+
 def load_panel(root, config, target):
     root = Path(root)
     series = {

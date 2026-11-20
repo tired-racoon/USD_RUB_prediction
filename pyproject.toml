@@ -38,6 +38,14 @@ sequence = [
     "scikit-learn>=1.6,<2",
     "torch>=2.5,<3",
 ]
+prophet = [
+    "prophet>=1.1.7,<2",
+]
+ensemble = [
+    "mlx==0.32.4 ; platform_machine == 'arm64' and sys_platform == 'darwin'",
+    "scikit-learn>=1.6,<2",
+    "tfc-t0[mlx]==0.6.1 ; platform_machine == 'arm64' and sys_platform == 'darwin'",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/usd_rub"]

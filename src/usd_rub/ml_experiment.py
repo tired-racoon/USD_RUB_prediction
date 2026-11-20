@@ -98,10 +98,12 @@ def eligible_rows(split, horizon, window=None):
     return np.arange(first, max(first, split - horizon))
 
 
-def fit_predict(x, y, cfg, split, origins, horizons, *, min_hit_rate=0):
+def fit_predict(x, y, cfg, split, origins, horizons, *, min_hit_rate=0, half_life_days=None):
     from sklearn.ensemble import ExtraTreesRegressor, HistGradientBoostingRegressor
     from sklearn.linear_model import Ridge
 
+    if half_life_days is not None and (not np.isfinite(half_life_days) or half_life_days <= 0):
+        raise ValueError("Период полураспада весов должен быть положительным и конечным")
     window_start = max(0, split - cfg.window) if cfg.window else 0
     observed = x[window_start : split - 1]
     finite = np.isfinite(observed)
@@ -165,6 +167,10 @@ def fit_predict(x, y, cfg, split, origins, horizons, *, min_hit_rate=0):
         train = eligible_rows(split, h, cfg.window)
         delta = y[train + h] / y[train] - 1
         weight = (y[train] / np.median(y[train])) ** 2
+        if half_life_days is not None:
+            age = train - train[-1]
+            decay = np.exp2(age / half_life_days)
+            weight = weight * decay * (weight.sum() / (weight @ decay))
         return train, delta, weight
 
     if not cfg.pooled:

@@ -14,6 +14,7 @@ from llm_news_holdout import bootstrap
 from sklearn.linear_model import Ridge
 from threadpoolctl import threadpool_limits
 
+from usd_rub.ensemble_forecast import blend_predictions
 from usd_rub.ml_experiment import blend_weights, selection_loss
 from usd_rub.sources.news_archive import write_csv
 from usd_rub.storage import input_fingerprints
@@ -285,10 +286,8 @@ def fit(args):
                 for h, row in zip(HORIZONS, weights, strict=True)
                 for key, weight in zip(keys, row, strict=True)
             )
-    earlier = test.project(
-        test.raw[CLASSICAL]
-        + np.where(HORIZONS > 3, 0.15, 0)
-        * (test.raw["t0_gamma/market_calendar"] - test.raw[CLASSICAL])
+    earlier = blend_predictions(
+        test.raw[CLASSICAL], test.raw["t0_gamma/market_calendar"], test.last, test.fixes
     )
     choices["previous_t0_15"] = (np.nan, earlier, {}, {})
 
