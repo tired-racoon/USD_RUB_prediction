@@ -29,6 +29,15 @@ ml = [
     "catboost>=1.2.8,<2",
     "scikit-learn>=1.6,<2",
 ]
+news = [
+    "pyarrow>=17,<27",
+    "torch>=2.5,<3",
+    "transformers>=4.56,<6",
+]
+sequence = [
+    "scikit-learn>=1.6,<2",
+    "torch>=2.5,<3",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/usd_rub"]

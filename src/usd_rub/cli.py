@@ -409,6 +409,18 @@ def main(argv=None):
     releases.add_argument("--end", default=today)
     audit = sub.add_parser("audit")
     audit.add_argument("--as-of", default=today)
+    news = sub.add_parser("news-fetch", help="Собрать архив российских новостных заголовков")
+    news.add_argument("--start", default="2016-10-01")
+    news.add_argument("--end", default=today)
+    news.add_argument("--workers", type=int, choices=range(1, 9), default=4)
+    news.add_argument("--output")
+    news = sub.add_parser("news-features", help="Рассчитать дневные эмбеддинги и тональность")
+    news.add_argument("--input")
+    news.add_argument("--output")
+    news.add_argument("--device", choices=["auto", "cpu", "mps", "cuda"], default="auto")
+    news.add_argument("--batch-size", type=int, default=128)
+    news.add_argument("--smartlab-parquet", action="append", default=[])
+    news.add_argument("--rbc-ids", help="Диапазон постов канала РБК START:STOP")
     repair = sub.add_parser("repair-data")
     repair.add_argument("--as-of", default=today)
     args = parser.parse_args(argv)
@@ -437,6 +449,14 @@ def main(argv=None):
             return import_command(args)
         if args.command == "features":
             return features_command(args)
+        if args.command == "news-fetch":
+            from usd_rub.sources.news_archive import fetch_news
+
+            return fetch_news(args)
+        if args.command == "news-features":
+            from usd_rub.news_features import build_news
+
+            return build_news(args)
         if args.command == "audit":
             from usd_rub.audit import audit_data
 
