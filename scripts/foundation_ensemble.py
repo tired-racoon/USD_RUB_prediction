@@ -149,6 +149,7 @@ def summarize(choices, test_inputs):
         ratios = relative_rmse(prediction, actual, last)
         errors = prediction - actual
         rmse = np.sqrt((errors**2).mean(axis=0))
+        mape = 100 * np.mean(np.abs(errors) / actual, axis=0)
         fitted_boot = np.sqrt((errors**2)[indices].mean(axis=1))
         low, high = np.quantile(
             ((fitted_boot - old_boot)[valid] / rw[valid]).mean(axis=1) * 100, [0.025, 0.975]
@@ -165,14 +166,23 @@ def summarize(choices, test_inputs):
                 "rmse_1d": rmse[0],
                 "rmse_3d": rmse[2],
                 "rmse_7d": rmse[6],
+                "mape_mean_pct": mape.mean(),
+                "mape_1d_pct": mape[0],
+                "mape_7d_pct": mape[6],
                 "rmse_1d_fixing": np.sqrt((errors[fixing, 0] ** 2).mean()),
                 "delta_ci_low_pp": low,
                 "delta_ci_high_pp": high,
             }
         )
         detailed.extend(
-            {"candidate": name, "horizon": h, "rmse": error, "rmse_to_rw": ratio}
-            for h, error, ratio in zip(HORIZONS, rmse, ratios, strict=True)
+            {
+                "candidate": name,
+                "horizon": h,
+                "rmse": error,
+                "rmse_to_rw": ratio,
+                "mape_pct": percent_error,
+            }
+            for h, error, ratio, percent_error in zip(HORIZONS, rmse, ratios, mape, strict=True)
         )
         predictions.append(
             pd.DataFrame(
@@ -191,8 +201,11 @@ def summarize(choices, test_inputs):
                 for key, value in values.items()
                 if value > 1e-9
             )
+    summary = pd.DataFrame(summary)
+    base_mape = summary.loc[summary.candidate.eq(CLASSICAL), "mape_mean_pct"].iloc[0]
+    summary["mape_gain_vs_classical_pp"] = base_mape - summary.mape_mean_pct
     return (
-        pd.DataFrame(summary).sort_values("validation_rmse_to_rw", kind="stable"),
+        summary.sort_values("validation_rmse_to_rw", kind="stable"),
         pd.DataFrame(detailed),
         pd.concat(predictions, ignore_index=True),
         pd.DataFrame(weights),

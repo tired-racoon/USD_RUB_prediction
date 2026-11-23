@@ -1,0 +1,25 @@
+{
+  "url": "https://iss.moex.com/iss/history/engines/stock/markets/index/boards/MMIX/securities/RUSFARCNY.json?from=2022-09-01&till=2026-11-18&start=200&interval=24&iss.meta=off",
+  "sha256": "0682ab75351612c59409187ddcfd69827286fa8e38d4618f90af0cbb4e5d3b5e",
+  "ingested_at": "2026-11-19T13:58:51.322569+00:00",
+  "status": 200,
+  "headers": {
+    "server": "nginx",
+    "date": "Thu, 19 Nov 2026 13:58:55 GMT",
+    "content-type": "application/json; charset=utf-8",
+    "transfer-encoding": "chunked",
+    "connection": "keep-alive",
+    "x-iss-profiling": "url_parsing: 5.694000; queries_get: 0.000000, processing: 5.626000; lua: 5.617000",
+    "cache-control": "max-age=5",
+    "expires": "Thu, 19 Nov 2026 13:59:00 GMT",
+    "x-micexcachetime": "5",
+    "x-micexpassport-marker": "granted",
+    "access-control-allow-credentials": "true",
+    "access-control-expose-headers": "X-MicexPassport-Marker",
+    "x-frame-options": "SAMEORIGIN",
+    "x-request-id": "6a835622e70a892851df1943c4427408",
+    "x-xss-protection": "1; mode=block",
+    "content-encoding": "gzip"
+  },
+  "method": "GET"
+}
