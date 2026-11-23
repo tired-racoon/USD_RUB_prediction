@@ -9,10 +9,12 @@ from tempfile import NamedTemporaryFile
 import xgboost
 from forecast_extensions import load_inputs
 from forecast_stacking import ARCHIVE_FILES
+from foundation_ensemble import CLASSICAL
 from theory_holdout import PRIMARY, references
 
 from usd_rub.fixing_calendar import HORIZONS
 from usd_rub.market_correction import (
+    COMPACT_MACRO_BUNDLE,
     MACRO_BUNDLE,
     MARKET_BUNDLE,
     MARKET_FEATURES,
@@ -21,22 +23,34 @@ from usd_rub.market_correction import (
 )
 from usd_rub.ml_dataset import feature_panels
 from usd_rub.storage import input_fingerprints
-from usd_rub.theory_features import FUNDAMENTAL_SIGNS, MACRO_CORRECTION_FEATURES
+from usd_rub.theory_features import (
+    COMPACT_FUNDAMENTAL_SIGNS,
+    COMPACT_MACRO_FEATURES,
+    FUNDAMENTAL_SIGNS,
+    MACRO_CORRECTION_FEATURES,
+)
 
 
 def export(args):
     """Обучить на калибровке и записать переносимый архив деревьев."""
     dataset, calibration, _, _, _ = load_inputs(args)
-    columns = MACRO_CORRECTION_FEATURES if args.macro else MARKET_FEATURES
-    signs = FUNDAMENTAL_SIGNS if args.macro else None
+    if args.compact_macro:
+        columns, signs = COMPACT_MACRO_FEATURES, COMPACT_FUNDAMENTAL_SIGNS
+        baseline = calibration.projected[CLASSICAL]
+        anchor = CLASSICAL
+    else:
+        columns = MACRO_CORRECTION_FEATURES if args.macro else MARKET_FEATURES
+        signs = FUNDAMENTAL_SIGNS if args.macro else None
+        baseline = references(calibration)[PRIMARY]
+        anchor = PRIMARY
     features = feature_panels(dataset)["extended"].loc[calibration.dates, list(columns)]
-    baseline = references(calibration)[PRIMARY]
     models = fit_corrections(features, calibration.actual, baseline, calibration.last, signs)
     bundle = {
         "format_version": 1,
         "xgboost": xgboost.__version__,
         "trained_before": json.loads(args.config.read_text())["test_start"],
         "calibration_origins": len(calibration.dates),
+        "anchor_model": anchor,
         "features": [*columns, "anchor_return"],
         "horizons": HORIZONS.tolist(),
         "parameters": XGB_PARAMS,
@@ -60,7 +74,13 @@ def export(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--macro", action="store_true", help="Собрать модель со знаками макроблока")
+    variant = parser.add_mutually_exclusive_group()
+    variant.add_argument(
+        "--macro", action="store_true", help="Собрать прежнюю макропоправку к t0-gamma"
+    )
+    variant.add_argument(
+        "--compact-macro", action="store_true", help="Собрать основную поправку к классике"
+    )
     parser.add_argument("--dataset", type=Path)
     parser.add_argument("--config", type=Path, default=Path("config/ml_holdout.json"))
     parser.add_argument("--archive", type=Path, default=Path("data/reports/forecast_stacking"))
@@ -68,8 +88,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
     args.dataset = args.dataset or Path(
         "data/reports/theory_holdout/dataset.csv.gz"
-        if args.macro
+        if args.macro or args.compact_macro
         else "datasets/usd_rub_2011_2026_full.csv.gz"
     )
-    args.output = args.output or (MACRO_BUNDLE if args.macro else MARKET_BUNDLE)
+    bundle = (
+        COMPACT_MACRO_BUNDLE
+        if args.compact_macro
+        else MACRO_BUNDLE
+        if args.macro
+        else MARKET_BUNDLE
+    )
+    args.output = args.output or bundle
     export(args)

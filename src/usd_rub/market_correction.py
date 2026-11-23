@@ -17,8 +17,10 @@ MARKET_FEATURES = (
     "global__synthetic_basis",
 )
 CORRECTION_FRACTION = 0.25
+COMPACT_CORRECTION_FRACTION = 0.5
 MARKET_BUNDLE = Path(__file__).with_name("market_correction.json.gz")
 MACRO_BUNDLE = Path(__file__).with_name("macro_correction.json.gz")
+COMPACT_MACRO_BUNDLE = Path(__file__).with_name("compact_macro_correction.json.gz")
 XGB_PARAMS = {
     "n_estimators": 80,
     "max_depth": 2,
@@ -59,11 +61,11 @@ def predict_levels(models, features, baseline, last):
     return np.column_stack(predictions)
 
 
-def corrected_forecast(models, features, baseline, last, changes):
-    """Добавить четверть поправки и согласовать горизонты по календарю ЦБ."""
+def corrected_forecast(models, features, baseline, last, changes, *, fraction=CORRECTION_FRACTION):
+    """Добавить долю поправки и согласовать горизонты по календарю ЦБ."""
     corrected = predict_levels(models, features, baseline, last)
     prediction = apply_calendar(
-        baseline + CORRECTION_FRACTION * (corrected - baseline), last, changes, pool=True
+        baseline + fraction * (corrected - baseline), last, changes, pool=True
     )
     if not (np.isfinite(prediction).all() and (prediction > 0).all()):
         raise ValueError("Поправка XGBoost дала некорректный прогноз")

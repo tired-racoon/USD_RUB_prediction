@@ -49,6 +49,19 @@ GLOBAL_FX_FEATURES = (
     "news__gpr_daily_shock_30d",
 )
 MACRO_CORRECTION_FEATURES = (*MARKET_FEATURES, *GLOBAL_FX_FEATURES, *FUNDAMENTAL_SIGNS)
+COMPACT_MACRO_FEATURES = (
+    "rates__theory_policy_gap",
+    "global__synthetic_basis",
+    "fx__theory_ppp_value_gap",
+    "fx__theory_rub_momentum_63d",
+    "global__theory_em_fx_abs_return_21d",
+    "macro__theory_trade_balance_gap",
+    "own__return_5",
+    "fx__cny_basis",
+)
+COMPACT_FUNDAMENTAL_SIGNS = {
+    name: sign for name, sign in FUNDAMENTAL_SIGNS.items() if name in COMPACT_MACRO_FEATURES
+}
 LAGS = {"cpi": 55, "money": 65, "trade": 95, "production": 75, "epu": 7, "funding": 4}
 
 

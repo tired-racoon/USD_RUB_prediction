@@ -350,10 +350,20 @@ def main(argv=None):
     ensemble.add_argument("--dataset", type=Path, help="Снимок признаков для исторического запуска")
     ensemble.add_argument("--config", type=Path, default=Path("config/ml_holdout.json"))
     ensemble.add_argument("--calendar", type=Path, default=Path("config/cbr_fixing_calendar.json"))
-    ensemble.add_argument("--checkpoint", type=Path, help="Каталог локального чекпойнта t0-gamma")
+    ensemble.add_argument(
+        "--checkpoint", type=Path, help="Чекпойнт для исторического варианта t0-gamma"
+    )
     ensemble.add_argument("--end", help="Дата прогноза в формате ГГГГ-ММ-ДД")
     ensemble.add_argument("--train-before", help="Граница обучающих целей для повтора holdout")
     variant = ensemble.add_mutually_exclusive_group()
+    variant.add_argument(
+        "--classical-only", action="store_true", help="Классический ансамбль без поправки"
+    )
+    variant.add_argument(
+        "--legacy-t0-gamma",
+        action="store_true",
+        help="Прежний ансамбль с t0-gamma и макропоправкой",
+    )
     variant.add_argument("--base-only", action="store_true", help="База 85/15 с t0-gamma")
     variant.add_argument("--market-only", action="store_true", help="База с рыночной поправкой")
     ensemble.add_argument("--fred-cache", type=Path, help="Зафиксированная выгрузка FRED")

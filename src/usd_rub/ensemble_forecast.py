@@ -1,4 +1,4 @@
-"""Основной прогноз USD/RUB с t0-gamma и макропоправкой XGBoost."""
+"""Прогноз USD/RUB с календарём ЦБ и поправкой XGBoost."""
 
 import json
 from hashlib import file_digest
@@ -8,9 +8,11 @@ import numpy as np
 import pandas as pd
 
 from usd_rub.backtest import daily_target
-from usd_rub.fixing_calendar import HORIZONS, apply_calendar
+from usd_rub.fixing_calendar import HORIZONS, apply_calendar, fixing_mask
 from usd_rub.freshness import require_current
 from usd_rub.market_correction import (
+    COMPACT_CORRECTION_FRACTION,
+    COMPACT_MACRO_BUNDLE,
     CORRECTION_FRACTION,
     MACRO_BUNDLE,
     MARKET_BUNDLE,
@@ -21,18 +23,24 @@ from usd_rub.market_correction import (
 from usd_rub.ml_dataset import feature_panels, read_dataset
 from usd_rub.ml_experiment import Candidate, fit_predict, specific_features, to_levels
 from usd_rub.ml_features import load_panel
-from usd_rub.storage import input_fingerprints, read_series
+from usd_rub.paper_features import MARKET_SERIES, market_features
+from usd_rub.storage import Client, input_fingerprints, read_series
 from usd_rub.t0_gamma import load_t0_gamma, market_inputs
 from usd_rub.theory_features import (
+    COMPACT_FUNDAMENTAL_SIGNS,
+    COMPACT_MACRO_FEATURES,
     FUNDAMENTAL_SIGNS,
     MACRO_CORRECTION_FEATURES,
     read_theory_sources,
     theory_features,
 )
+from usd_rub.yuan_experiment import ECB_ARCHIVE
 
 BASE_MODEL = "ensemble_t0_gamma"
 MARKET_MODEL = "ensemble_t0_gamma_xgb_market"
-MODEL = "ensemble_t0_gamma_xgb_macro"
+LEGACY_MACRO_MODEL = "ensemble_t0_gamma_xgb_macro"
+CLASSICAL_MODEL = "ensemble_classical"
+MODEL = "ensemble_classical_xgb_shap8"
 CLASSICAL = (
     (Candidate("ridge", "pilot", None, 0.15), 0.43838276164287915, 1.0),
     (Candidate("histboost", "market", 1460, 3), 0.3844272108930251, 0.75),
@@ -74,7 +82,7 @@ def blend_predictions(classical, gamma, last, changes):
     return apply_calendar(classic + GAMMA_WEIGHTS * (gamma - classic), last, changes, pool=True)
 
 
-def forecast_inputs(args, today):
+def forecast_inputs(args, today, *, include_ecb=False):
     """Взять срез из локальных рядов или исторического снимка."""
     data_dir = Path(args.data_dir)
     if args.dataset:
@@ -91,12 +99,22 @@ def forecast_inputs(args, today):
     config = json.loads(Path(args.config).read_text())
     target = daily_target(frame, config["start"], end)
     panels, paths = load_panel(data_dir, config, target)
+    if include_ecb:
+        with Client(data_dir) as client:
+            ecb = client.get(ECB_ARCHIVE)
+            if pd.Timestamp(ecb.ingested_at).tz_convert("Europe/Moscow").date() < end.date():
+                client.refresh = True
+                ecb = client.get(ECB_ARCHIVE)
+        quotes = {name: read_series(data_dir, name) for name in MARKET_SERIES}
+        additional = market_features(ecb, quotes, target)
+        panels = {name: panel.join(additional) for name, panel in panels.items()}
+        paths.append(data_dir / "raw" / "objects" / ecb.sha256)
     return target, panels, [data_dir / "normalized/usd_rub.csv", Path(args.config), *paths]
 
 
-def macro_panel(args, panel, target):
+def macro_panel(args, panel, target, columns=MACRO_CORRECTION_FEATURES):
     """Использовать рассчитанные макропризнаки или собрать их к дате прогноза."""
-    if all(name in panel for name in MACRO_CORRECTION_FEATURES):
+    if all(name in panel for name in columns):
         return panel, []
     data_dir = Path(args.data_dir)
     fred_root = args.fred_cache or data_dir / "model_runtime" / "theory_fred"
@@ -117,9 +135,14 @@ def run_forecast(args, today):
     try:
         from threadpoolctl import threadpool_limits
     except ImportError as exc:
-        raise ValueError("Для основного прогноза нужен uv run --extra ensemble") from exc
+        raise ValueError("Для основного прогноза нужен uv run --extra ml") from exc
 
-    target, panels, paths = forecast_inputs(args, pd.Timestamp(today))
+    legacy = (
+        args.base_only or args.market_only or args.legacy_t0_gamma or args.checkpoint is not None
+    )
+    if args.classical_only and legacy:
+        raise ValueError("--checkpoint относится к историческим вариантам с t0-gamma")
+    target, panels, paths = forecast_inputs(args, pd.Timestamp(today), include_ecb=not legacy)
     if not target.index.equals(pd.date_range(target.index.min(), target.index.max())):
         raise ValueError("Ожидается непрерывный календарный ряд USD/RUB")
     levels = target.to_numpy(dtype=float)
@@ -132,42 +155,57 @@ def run_forecast(args, today):
     split = target.index.searchsorted(cutoff)
     if split <= HORIZONS[-1]:
         raise ValueError("До --train-before нет завершённых семидневных наблюдений")
-    name, correction = BASE_MODEL, {}
+    name, correction = (BASE_MODEL if legacy else CLASSICAL_MODEL), {}
     panel = panels["extended"]
     query = target.index[-1:]
     models = None
-    if not args.base_only:
+    fraction = CORRECTION_FRACTION if legacy else COMPACT_CORRECTION_FRACTION
+    if not (args.base_only or args.classical_only):
         if args.market_only:
             name, bundle, columns = MARKET_MODEL, MARKET_BUNDLE, MARKET_FEATURES
             key, signs = "market_correction", None
-        else:
-            name, bundle, columns = MODEL, MACRO_BUNDLE, MACRO_CORRECTION_FEATURES
+        elif legacy:
+            name, bundle, columns = LEGACY_MACRO_MODEL, MACRO_BUNDLE, MACRO_CORRECTION_FEATURES
             key, signs = "macro_correction", FUNDAMENTAL_SIGNS
+        else:
+            name, bundle, columns = MODEL, COMPACT_MACRO_BUNDLE, COMPACT_MACRO_FEATURES
+            key, signs = "macro_correction", COMPACT_FUNDAMENTAL_SIGNS
         models, metadata = load_correction_bundle(bundle, columns, signs)
         if cutoff < pd.Timestamp(metadata["trained_before"]):
+            option = "--base-only" if legacy else "--classical-only"
             raise ValueError(
                 f"Поправка XGBoost обучена до {metadata['trained_before']}. "
-                "Для более ранней границы используйте --base-only"
+                f"Для более ранней границы используйте {option}"
             )
-        correction = {key: {"fraction": CORRECTION_FRACTION, **metadata}}
+        correction = {key: {"fraction": fraction, **metadata}}
         paths.append(bundle)
         if not args.market_only:
-            panel, sources = macro_panel(args, panel, target)
+            panel, sources = macro_panel(args, panel, target, columns)
             paths.extend(sources)
         features = panel.loc[query, list(columns)]
     calendar = json.loads(Path(args.calendar).read_text())
-    level, past, known, changes = market_inputs(target, panels["extended"], query, calendar)
 
-    checkpoint = args.checkpoint or Path(args.data_dir) / "model_runtime/checkpoints/t0_gamma"
-    with (checkpoint / "model.safetensors").open("rb") as file:
-        if file_digest(file, "sha256").hexdigest() != GAMMA_SHA256:
-            raise ValueError("Контрольная сумма весов отличается от проверенного t0-gamma")
     with threadpool_limits(limits=2):
         classical = classical_predictions(panels, levels, split, np.array([len(levels) - 1]))
-    gamma = load_t0_gamma(checkpoint)(level, past, known)
-    prediction = blend_predictions(classical, gamma, levels[-1:], changes)
+    last = levels[-1:]
+    foundation = {}
+    if legacy:
+        prediction, changes, path = legacy_prediction(
+            args, classical, panels, target, query, calendar
+        )
+        paths.append(path)
+        foundation["t0_gamma"] = {
+            "revision": GAMMA_REVISION,
+            "weights_sha256": GAMMA_SHA256,
+            "weights_by_horizon": GAMMA_WEIGHTS.tolist(),
+        }
+    else:
+        changes = fixing_mask(query, calendar, True)
+        prediction = apply_calendar(classical, last, changes, pool=True)
     if models is not None:
-        prediction = corrected_forecast(models, features, prediction, levels[-1:], changes)
+        prediction = corrected_forecast(
+            models, features, prediction, last, changes, fraction=fraction
+        )
     result = pd.DataFrame(
         {
             "model": name,
@@ -182,12 +220,20 @@ def run_forecast(args, today):
         "origin": str(origin.date()),
         "train_before": str(cutoff.date()),
         "classical": {cfg.name: {"weight": w, "shrink": s} for cfg, w, s in CLASSICAL},
-        "t0_gamma": {
-            "revision": GAMMA_REVISION,
-            "weights_sha256": GAMMA_SHA256,
-            "weights_by_horizon": GAMMA_WEIGHTS.tolist(),
-        },
-        "inputs": input_fingerprints([*paths, args.calendar, checkpoint / "config.json"]),
+        "inputs": input_fingerprints([*paths, args.calendar]),
+        **foundation,
         **correction,
     }
     return result, run
+
+
+def legacy_prediction(args, classical, panels, target, query, calendar):
+    """Воспроизвести основу с t0-gamma для прежних прогонов."""
+    checkpoint = args.checkpoint or Path(args.data_dir) / "model_runtime/checkpoints/t0_gamma"
+    with (checkpoint / "model.safetensors").open("rb") as file:
+        if file_digest(file, "sha256").hexdigest() != GAMMA_SHA256:
+            raise ValueError("Контрольная сумма весов отличается от проверенного t0-gamma")
+    level, past, known, changes = market_inputs(target, panels["extended"], query, calendar)
+    gamma = load_t0_gamma(checkpoint)(level, past, known)
+    prediction = blend_predictions(classical, gamma, target.loc[query].to_numpy(), changes)
+    return prediction, changes, checkpoint / "config.json"

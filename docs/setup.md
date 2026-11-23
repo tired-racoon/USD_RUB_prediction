@@ -52,32 +52,32 @@ uv run python scripts/export_ml_dataset.py
 
 ## Основной прогноз USD/RUB
 
-Команда запускает MLX-версию t0-gamma на Mac с Apple Silicon. В каталоге `data/model_runtime/checkpoints/t0_gamma/` нужны `config.json` и `model.safetensors` проверенной ревизии `fef67abad3eed4f227c7b536a6e8ee4e9ab1080d`. Для другого расположения используется `--checkpoint`. [Подготовка чекпойнта](foundation_holdout.md#запуск-на-macbook-air-m4)
+Команда запускает Ridge, HistGradientBoosting и Extra Trees с весами 43,84%, 38,44% и 17,72%. К их прогнозу после календарной обработки добавляется 50% поправки XGBoost на восьми признаках. Затем календарь применяется повторно. Семь моделей поправки обучены на 1 433 вневыборочных прогнозах классической базы 2021–2024 годов и входят в пакет. [Отбор признаков и сравнение моделей](shap_holdout.md)
 
 ```sh
-uv run --locked --extra ensemble usd-rub forecast-ensemble
+uv run --locked --extra ml usd-rub forecast-ensemble
 ```
 
-Команда берёт последнюю известную дату из локальных рядов и обучает классические модели на доступной к ней истории. Доля t0-gamma в базе составляет 0% на 1–3 днях и 15% на 4–7 днях. К базе после календарной обработки добавляется четверть поправки XGBoost с рыночными и макроэкономическими признаками. Затем календарь применяется ещё раз. Семь моделей XGBoost обучены на 1 433 вневыборочных прогнозах 2021–2024 годов и входят в пакет.
+Команда берёт последнюю известную дату из локальных рядов и обучает классические модели на доступной к ней истории. Рыночные и макроэкономические признаки дополняются данными ECB и FRED. Если передан готовый снимок с рассчитанными колонками, команда использует их. Для воспроизведения с зафиксированными выгрузками FRED можно передать `--fred-cache data/reports/theory_holdout/fred`.
 
-Макропризнаки собираются из локальных рядов и семи выгрузок FRED. При первом запуске на дату запроса ответы сохраняются в `data/model_runtime/theory_fred/`. Если в снимке уже есть рассчитанные колонки, команда использует их. Для воспроизведения с зафиксированными выгрузками можно передать `--fred-cache data/reports/theory_holdout/fred`.
+Прогноз сохраняется в `data/reports/forecast_ensemble.csv`, дата, веса и контрольные суммы входов — в соседнем JSON. Флаг `--classical-only` запускает классическую базу и подходит для границ обучения раньше 01.01.2025.
 
-Прогноз сохраняется в `data/reports/forecast_ensemble.csv`, дата, веса и контрольные суммы входов — в соседнем JSON. Флаг `--market-only` запускает вариант с одной рыночной поправкой, а `--base-only` — базовую смесь 85/15. Для границы обучения до 01.01.2025 подходит `--base-only`.
+Для воспроизведения прежней модели на Mac с Apple Silicon используется `uv run --locked --extra ensemble usd-rub forecast-ensemble --legacy-t0-gamma`. Ей нужен локальный чекпойнт. Флаги `--market-only` и `--base-only` запускают прежнюю рыночную и базовую конфигурации. [Подготовка чекпойнта](foundation_holdout.md#запуск-на-macbook-air-m4)
 
 Для повтора отдельной даты исторического теста используется сохранённый снимок с фиксированной границей обучения.
 
 ```sh
-uv run --locked --extra ensemble usd-rub forecast-ensemble \
+uv run --locked --extra ml usd-rub forecast-ensemble \
   --dataset data/reports/theory_holdout/dataset.csv.gz \
   --end 2026-11-11 --train-before 2025-01-01 \
   --output data/reports/forecast_ensemble_holdout.csv
 ```
 
-Для переобучения семи моделей по архиву калибровки используется отдельная команда. [Архив прогнозов](forecast_stacking.md) · [Эксперимент с XGBoost](theory_holdout.md)
+Для переобучения семи моделей поправки нужны архив калибровки и панель макропризнаков. [Архив прогнозов](forecast_stacking.md) · [Панель макропризнаков](theory_holdout.md)
 
 ```sh
 uv run --locked --extra ml python scripts/theory_holdout.py
-uv run --locked --extra ml python scripts/fit_market_correction.py --macro
+uv run --locked --extra ml python scripts/fit_market_correction.py --compact-macro
 ```
 
 ## Бейзлайны, факторная модель и тесты
