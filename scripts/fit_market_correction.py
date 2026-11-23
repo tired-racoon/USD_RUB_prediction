@@ -7,6 +7,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 import xgboost
+from export_ensemble_dataset import ENSEMBLE_DATASET
 from forecast_extensions import load_inputs
 from forecast_stacking import ARCHIVE_FILES
 from foundation_ensemble import CLASSICAL
@@ -86,17 +87,12 @@ if __name__ == "__main__":
     parser.add_argument("--archive", type=Path, default=Path("data/reports/forecast_stacking"))
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    args.dataset = args.dataset or Path(
-        "data/reports/theory_holdout/dataset.csv.gz"
-        if args.macro or args.compact_macro
-        else "datasets/usd_rub_2011_2026_full.csv.gz"
-    )
-    bundle = (
-        COMPACT_MACRO_BUNDLE
-        if args.compact_macro
-        else MACRO_BUNDLE
-        if args.macro
-        else MARKET_BUNDLE
-    )
+    if args.compact_macro:
+        dataset, bundle = ENSEMBLE_DATASET, COMPACT_MACRO_BUNDLE
+    elif args.macro:
+        dataset, bundle = Path("data/reports/theory_holdout/dataset.csv.gz"), MACRO_BUNDLE
+    else:
+        dataset, bundle = Path("datasets/usd_rub_2011_2026_full.csv.gz"), MARKET_BUNDLE
+    args.dataset = args.dataset or dataset
     args.output = args.output or bundle
     export(args)

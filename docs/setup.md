@@ -64,20 +64,26 @@ uv run --locked --extra ml usd-rub forecast-ensemble
 
 Для воспроизведения прежней модели на Mac с Apple Silicon используется `uv run --locked --extra ensemble usd-rub forecast-ensemble --legacy-t0-gamma`. Ей нужен локальный чекпойнт. Флаги `--market-only` и `--base-only` запускают прежнюю рыночную и базовую конфигурации. [Подготовка чекпойнта](foundation_holdout.md#запуск-на-macbook-air-m4)
 
-Для повтора отдельной даты исторического теста используется сохранённый снимок с фиксированной границей обучения.
+Для повтора отдельной даты исторического теста используется [снимок основного ансамбля на 69 признаках](../datasets/usd_rub_2011_2026_ensemble.csv.gz) с фиксированной границей обучения.
 
 ```sh
 uv run --locked --extra ml usd-rub forecast-ensemble \
-  --dataset data/reports/theory_holdout/dataset.csv.gz \
+  --dataset datasets/usd_rub_2011_2026_ensemble.csv.gz \
   --end 2026-11-11 --train-before 2025-01-01 \
   --output data/reports/forecast_ensemble_holdout.csv
 ```
 
-Для переобучения семи моделей поправки нужны архив калибровки и панель макропризнаков. [Архив прогнозов](forecast_stacking.md) · [Панель макропризнаков](theory_holdout.md)
+Поправка XGBoost переобучается по основному снимку и архиву калибровки. [Архив прогнозов](forecast_stacking.md)
+
+```sh
+uv run --locked --extra ml python scripts/fit_market_correction.py --compact-macro
+```
+
+Для пересборки основного снимка сначала формируется расширенная панель. [Панель макропризнаков](theory_holdout.md)
 
 ```sh
 uv run --locked --extra ml python scripts/theory_holdout.py
-uv run --locked --extra ml python scripts/fit_market_correction.py --compact-macro
+uv run --locked --extra ml python scripts/export_ensemble_dataset.py
 ```
 
 ## Бейзлайны, факторная модель и тесты

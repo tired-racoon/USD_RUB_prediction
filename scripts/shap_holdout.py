@@ -342,8 +342,8 @@ if __name__ == "__main__":
         "--intraday", type=Path, default=Path("datasets/usd_rub_2011_2026_fx_candles.csv.gz")
     )
     parser.add_argument("--output", type=Path, default=Path("data/reports/shap_holdout"))
-    parser.add_argument(
-        "--reduced", type=Path, default=Path("datasets/usd_rub_2011_2026_shap.csv.gz")
-    )
+    parser.add_argument("--reduced", type=Path, help="Путь к сокращённому снимку эксперимента")
+    args = parser.parse_args()
+    args.reduced = args.reduced or args.output / "dataset.csv.gz"
     with threadpool_limits(limits=2):
-        run(parser.parse_args())
+        run(args)

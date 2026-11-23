@@ -52,15 +52,21 @@ GAMMA_SHA256 = "1603e255629be22ea45518b502f16c55d06821c7090a1a851673e779e9c245a6
 MIN_HIT_RATE = 0.5
 
 
+def classical_features(panels, candidate, split):
+    """Выбрать признаки классической модели по заполненности на границе обучения."""
+    features = specific_features(panels, candidate.setup)
+    features = features.loc[:, ~features.columns.str.contains("__theory_", regex=False)]
+    supported = features.iloc[:split].notna().mean().ge(MIN_HIT_RATE)
+    return features.loc[:, supported]
+
+
 def classical_predictions(panels, levels, split, origins):
     """Посчитать три классических прогноза с параметрами из holdout."""
     prediction = np.zeros((len(origins), len(HORIZONS)))
     for candidate, weight, shrink in CLASSICAL:
-        features = specific_features(panels, candidate.setup)
-        features = features.loc[:, ~features.columns.str.contains("__theory_", regex=False)]
-        supported = features.iloc[:split].notna().mean().ge(MIN_HIT_RATE)
+        features = classical_features(panels, candidate, split)
         raw, _ = fit_predict(
-            features.loc[:, supported].to_numpy(dtype=float),
+            features.to_numpy(dtype=float),
             levels,
             candidate,
             split,
