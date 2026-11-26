@@ -42,12 +42,20 @@ sequence = [
 prophet = [
     "prophet>=1.1.7,<2",
 ]
+research = [
+    "matplotlib>=3.8,<4",
+    "statsmodels>=0.14,<1",
+    "tsururu==1.1.0 ; python_version < '3.14'",
+]
 ensemble = [
     "mlx==0.32.4 ; platform_machine == 'arm64' and sys_platform == 'darwin'",
     "scikit-learn>=1.6,<2",
     "tfc-t0[mlx]==0.6.1 ; platform_machine == 'arm64' and sys_platform == 'darwin'",
     "xgboost>=3,<4",
 ]
+
+[tool.uv.sources]
+tsururu = { git = "https://github.com/sb-ai-lab/tsururu.git", rev = "3fd789fb0bad562fc18d72f24cb24c91d531cf4f" }
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/usd_rub"]
